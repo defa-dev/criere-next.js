@@ -16,6 +16,7 @@ import {
   useBreakpointValue,
   useDisclosure,
   Container,
+  Image,
 } from '@chakra-ui/react'
 import {
   HamburgerIcon,
@@ -24,83 +25,95 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons'
 import NextLink from 'next/link'
+import { useProjectImages } from '@/hooks/useImages'
+import Logo from './Logo'
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
+  const { getLogo } = useProjectImages()
 
   return (
     <Box>
       <Flex
-        bg="white"
-        color="brand.blue"
-        minH={'60px'}
-        py={{ base: 2 }}
-        px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={'solid'}
-        borderColor="gray.200"
-        align={'center'}
         position="fixed"
         top={0}
         left={0}
         right={0}
         zIndex={1000}
-        boxShadow="sm"
+        minH={'60px'}
+        align={'center'}
       >
-        <Container maxW="1200px">
-          <Flex align={'center'} justify={'space-between'}>
-            <Flex
-              flex={{ base: 1, md: 'auto' }}
-              ml={{ base: -2 }}
-              display={{ base: 'flex', md: 'none' }}
-            >
-              <IconButton
-                onClick={onToggle}
-                icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
-                variant={'ghost'}
-                aria-label={'Toggle Navigation'}
-              />
-            </Flex>
-            <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-              <Text
-                as={NextLink}
-                href="/"
-                textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                fontFamily={'heading'}
-                fontWeight="extrabold"
-                fontSize="2xl"
-                color="brand.orange"
-                _hover={{
-                  textDecoration: 'none',
-                }}
-              >
-                Projeto Crierê
-              </Text>
+        {/* Seção azul - 33vw */}
+        <Box 
+          bg="brand.blue" 
+          w="33vw" 
+          h="60px"
+          display="flex"
+          alignItems="center"
+          px={4}
+        >
+          {/* Logo no lado azul */}
+          <Logo 
+            variant="white" 
+            size="md" 
+            color="white"
+          />
+        </Box>
 
-              <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+        {/* Seção laranja - 67vw */}
+        <Box 
+          bg="brand.blue" 
+          w="67vw" 
+          h="60px"
+          display="flex"
+          alignItems="center"
+          justifyContent="flex-end"
+          px={4}
+        >
+          <Container maxW="1200px" w="full">
+            <Flex align={'center'} justify={'flex-end'} h="60px">
+              {/* Menu mobile */}
+              <Flex
+                display={{ base: 'flex', md: 'none' }}
+                mr={4}
+              >
+                <IconButton
+                  onClick={onToggle}
+                  icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+                  variant={'ghost'}
+                  aria-label={'Toggle Navigation'}
+                  color="white"
+                  _hover={{ bg: "whiteAlpha.200" }}
+                />
+              </Flex>
+
+              {/* Menu desktop - alinhado à direita */}
+              <Flex display={{ base: 'none', md: 'flex' }} align="center">
                 <DesktopNav />
               </Flex>
-            </Flex>
 
-            <Stack
-              flex={{ base: 1, md: 0 }}
-              justify={'flex-end'}
-              direction={'row'}
-              spacing={6}
-            >
-              <Button
-                display={{ base: 'none', md: 'inline-flex' }}
-                fontSize={'sm'}
-                fontWeight={600}
-                variant="primary"
-                as={NextLink}
-                href="/voluntarios"
+              <Stack
+                justify={'flex-end'}
+                direction={'row'}
+                spacing={6}
+                ml={6}
               >
-                Seja Voluntário
-              </Button>
-            </Stack>
-          </Flex>
-        </Container>
+                <Button
+                  display={{ base: 'none', md: 'inline-flex' }}
+                  fontSize={'sm'}
+                  fontWeight={600}
+                  bg="white"
+                  color="brand.blue"
+                  _hover={{ bg: "whiteAlpha.900" }}
+                  as={NextLink}
+                  href="/voluntarios"
+                >
+                  Seja Voluntário
+                </Button>
+              </Stack>
+            </Flex>
+          </Container>
+        </Box>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
@@ -111,8 +124,8 @@ export default function Navbar() {
 }
 
 const DesktopNav = () => {
-  const linkColor = 'brand.blue'
-  const linkHoverColor = 'brand.orange'
+  const linkColor = 'white' // Links em branco
+  const linkHoverColor = 'whiteAlpha.800' // Hover mais suave
   const popoverContentBgColor = 'white'
 
   return (
@@ -202,13 +215,26 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 
 const MobileNav = () => {
   return (
-    <Stack bg="white" p={4} display={{ md: 'none' }} position="fixed" top="60px" left={0} right={0} zIndex={999} boxShadow="md">
+    <Stack 
+      bg="rgba(0, 0, 0, 0.95)" // Fundo escuro semi-transparente
+      backdropFilter="blur(20px)" // Blur mais intenso
+      p={4} 
+      display={{ md: 'none' }} 
+      position="fixed" 
+      top="60px" 
+      left={0} 
+      right={0} 
+      zIndex={999} 
+      boxShadow="xl"
+    >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
       <Button
         mt={4}
-        variant="primary"
+        bg="white"
+        color="brand.blue"
+        _hover={{ bg: "whiteAlpha.900" }}
         as={NextLink}
         href="/voluntarios"
       >
@@ -233,7 +259,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
               textDecoration: 'none',
             }}
           >
-            <Text fontWeight={600} color="brand.blue">
+            <Text fontWeight={600} color="white"> {/* Texto branco */}
               {label}
             </Text>
           </Flex>
@@ -247,7 +273,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
             textDecoration: 'none',
           }}
         >
-          <Text fontWeight={600} color="brand.blue">
+          <Text fontWeight={600} color="white"> {/* Texto branco */}
             {label}
           </Text>
           {children && (
@@ -257,6 +283,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
               transform={isOpen ? 'rotate(180deg)' : ''}
               w={6}
               h={6}
+              color="white" // Ícone branco
             />
           )}
         </Flex>
@@ -269,16 +296,16 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
             pl={4}
             borderLeft={1}
             borderStyle={'solid'}
-            borderColor="gray.200"
+            borderColor="whiteAlpha.300" // Borda mais suave
             align={'start'}
           >
             {children.map((child) => (
               child.href ? (
                 <NextLink key={child.label} href={child.href} passHref>
-                  <Text py={2}>{child.label}</Text>
+                  <Text py={2} color="whiteAlpha.800">{child.label}</Text>
                 </NextLink>
               ) : (
-                <Text key={child.label} py={2}>{child.label}</Text>
+                <Text key={child.label} py={2} color="whiteAlpha.800">{child.label}</Text>
               )
             ))}
           </Stack>
@@ -327,6 +354,10 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Impacto Social',
     href: '/impacto',
+  },
+  {
+    label: 'Blog',
+    href: '/blog',
   },
   {
     label: 'Depoimentos',

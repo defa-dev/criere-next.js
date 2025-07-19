@@ -15,6 +15,7 @@ import {
 import { PhoneIcon, EmailIcon } from '@chakra-ui/icons'
 import { FaInstagram, FaWhatsapp, FaHeart } from 'react-icons/fa'
 import NextLink from 'next/link'
+import Logo from './Logo'
 
 export default function Footer() {
   return (
@@ -30,16 +31,12 @@ export default function Footer() {
         >
           <Stack spacing={6}>
             <Box>
-              <Heading
-                fontFamily="heading"
-                fontWeight="extrabold"
-                fontSize="2xl"
-                color="brand.orange"
-                mb={2}
-              >
-                Projeto Crierê
-              </Heading>
-              <Text fontSize={'sm'}>
+              <Logo 
+                variant="white" 
+                size="lg" 
+                color="white"
+              />
+              <Text fontSize={'sm'} mt={4}>
                 Educação e cultura para crianças e adolescentes. 
                 Construindo sonhos através do conhecimento e da arte.
               </Text>
