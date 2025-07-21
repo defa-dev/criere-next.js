@@ -30,20 +30,22 @@ export default function Home() {
       {/* Hero Section - Estilo Dropbox */}
       <Box position="relative" minH="100vh" overflow="hidden" bg="brand.blue">
         {/* Background dividido verticalmente */}
-        <Box position="absolute" top={0} left={0} right={0} bottom={0}>
-          <HStack spacing={0} h="100vh">
+        <Box position="absolute" top={0} left={0} right={0} bottom={0} minH="100vh">
+          <HStack spacing={0} h="100%" minH="100vh">
             {/* Seção esquerda - azul escuro (1/3) */}
             <Box 
               bg="brand.blue" 
               w="33vw" 
-              h="100vh"
+              h="100%"
+              minH="100vh"
             />
             {/* Seção direita - laranja claro (2/3) */}
             <Box 
               bg="brand.orange" 
               w="67vw" 
-              h="100vh"
-              borderTopLeftRadius={{ base: "0", md: "200px" }} // Valor customizado entre 3xl e full
+              h="100%"
+              minH="100vh"
+              borderTopLeftRadius={{ base: "100px", md: "500px" }}
             />
           </HStack>
         </Box>
@@ -51,82 +53,42 @@ export default function Home() {
         {/* Conteúdo sobreposto */}
         <Container maxW="1200px" position="relative" zIndex={10} pt="120px">
           <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={12} alignItems="center" minH="80vh">
-            {/* Coluna de imagem - posicionada no encontro das duas seções (ESQUERDA) */}
+            {/* Coluna de imagem - posicionada no encontro das duas seções */}
             <Box 
               position="relative" 
               display="flex" 
               justifyContent="center" 
               alignItems="center"
-              transform={{ lg: "translateX(-50px)" }} // Move para a esquerda para ficar no encontro
+              transform={{ lg: "translateX(-50px) translateY(-60px)" }}
             >
               <Box
-                w={{ base: "300px", md: "400px", lg: "450px" }}
-                h={{ base: "300px", md: "400px", lg: "450px" }}
+                w={{ base: "350px", md: "500px", lg: "550px" }}
+                h={{ base: "350px", md: "500px", lg: "550px" }}
                 borderRadius="2xl"
                 overflow="hidden"
                 boxShadow="2xl"
-                border="px solid white"
+                //border="px solid white"
                 bg="white"
                 position="relative"
               >
-                {/* Imagem principal */}
                 <Box
                   w="100%"
                   h="100%"
                   bgImage={`url('${getHeroImage('main')}')`}
                   bgSize="cover"
-                  bgPosition="center"
+                  bgPosition="center 0%"
                   bgRepeat="no-repeat"
                   position="relative"
-                >
-                </Box>
+                />
               </Box>
-
-              {/* Cards flutuantes */}
-              <Card
-                position="absolute"
-                top={{ base: "20px", lg: "40px" }}
-                left={{ base: "-40px", lg: "-60px" }}
-                w="150px"
-                boxShadow="xl"
-                transform="rotate(-5deg)"
-                bg="brand.orange"
-                color="white"
-              >
-                <CardBody p={4} textAlign="center">
-                  <Icon as={FaHeart} w={6} h={6} mb={2} />
-                  <Text fontSize="sm" fontWeight="bold">
-                    15 anos de amor
-                  </Text>
-                </CardBody>
-              </Card>
-
-              <Card
-                position="absolute"
-                bottom={{ base: "40px", lg: "60px" }}
-                right={{ base: "-40px", lg: "-60px" }}
-                w="120px"
-                boxShadow="xl"
-                transform="rotate(8deg)"
-                bg="white"
-                border="2px solid"
-                borderColor="brand.blue"
-              >
-                <CardBody p={3} textAlign="center">
-                  <Icon as={FaUsers} w={5} h={5} mb={2} color="brand.blue" />
-                  <Text fontSize="xs" fontWeight="bold" color="brand.blue">
-                    100+ voluntários
-                  </Text>
-                </CardBody>
-              </Card>
             </Box>
 
-            {/* Coluna de texto (DIREITA) - cor dinâmica conforme o fundo */}
-            <VStack spacing={8} align="start">
+            {/* Coluna de texto - cor dinâmica conforme o fundo */}
+            <VStack spacing={4} align="start">
               <Image 
               src={getHeroImage('logo')}
-              width={300} 
-              height={10} 
+              width={400} 
+              height={80} 
               alt="Crianças do Projeto Crierê"
               />
               <Heading
@@ -150,7 +112,7 @@ export default function Home() {
                 Junte-se a nós nessa jornada de amor, aprendizado e esperança.
               </Text>
               
-              <VStack spacing={4} align="start" w="full">
+              <VStack spacing={4} align="start" w="full" pt={4}>
                 <Button 
                   variant="cta" 
                   size="lg" 
