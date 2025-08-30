@@ -15,7 +15,7 @@
     "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^5.1.1",
     "framer-motion": "^12.23.6",
-    "next": "15.4.2",
+    "next": "15.5.2",
     "next-seo": "^6.8.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
