@@ -74,11 +74,7 @@ export default function Home() {
             flexDirection: 'column',
             justifyContent: 'center'
           }}>
-            {/* Eyebrow */}
-            <p className="text-eyebrow" style={{ marginBottom: 'var(--space-sm)', fontFamily: 'var(--font-adumu)' }}>
-              Projeto Crierê
-            </p>
-
+           
             {/* H1 */}
             <h1 className="text-display" style={{
               marginBottom: 'var(--space-md)',
@@ -145,7 +141,16 @@ export default function Home() {
 
             {/* Coluna 3 - só card no fundo */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-              <div style={{ flex: 2 }}></div>
+              <div style={{ flex: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: '60%' }}>
+                <span style={{
+                  fontFamily: 'var(--font-adumu)',
+                  fontSize: 'clamp(32px, 4vw, 52px)',
+                  fontWeight: '700',
+                  color: 'var(--color-accent)',
+                  letterSpacing: '0.08em',
+                  userSelect: 'none',
+                }}>CRIERÊ</span>
+              </div>
               <BentoCard flex={1} cor="var(--color-accent)" padding="var(--space-sm)">
                 <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-h4)', fontWeight: '700', color: '#ffffff', marginBottom: 'var(--space-xs)', marginTop: 0 }}>
                   Junte-se a nós
@@ -226,7 +231,7 @@ export default function Home() {
         <div className="container">
           <div style={{ textAlign: 'center' }}>
             <h3 style={{
-              fontFamily: 'var(--font-body)',
+              fontFamily: 'var(--font-adumu)',
               fontSize: 'var(--text-h4)',
               fontWeight: '600',
               marginBottom: 'var(--space-lg)',
@@ -335,7 +340,7 @@ export default function Home() {
               padding: 'var(--space-md)'
             }}>
               <h3 style={{
-                fontFamily: 'var(--font-body)',
+                fontFamily: 'var(--font-adumu)',
                 fontSize: 'var(--text-h4)',
                 fontWeight: '600',
                 marginBottom: 'var(--space-sm)',
@@ -361,7 +366,7 @@ export default function Home() {
               borderLeft: '3px solid var(--color-accent)'
             }}>
               <h3 style={{
-                fontFamily: 'var(--font-body)',
+                fontFamily: 'var(--font-adumu)',
                 fontSize: 'var(--text-h4)',
                 fontWeight: '600',
                 marginBottom: 'var(--space-sm)',
@@ -387,7 +392,7 @@ export default function Home() {
               borderLeft: '3px solid var(--color-trust)'
             }}>
               <h3 style={{
-                fontFamily: 'var(--font-body)',
+                fontFamily: 'var(--font-adumu)',
                 fontSize: 'var(--text-h4)',
                 fontWeight: '600',
                 marginBottom: 'var(--space-sm)',
@@ -413,11 +418,11 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 'var(--space-lg)' }}>
-            <h2 className="text-h2" style={{ marginBottom: 'var(--space-sm)' }}>
+            <h2 className="text-h2" style={{ marginBottom: 'var(--space-sm)', fontFamily: 'var(--font-adumu)' }}>
               O que dizem sobre nós
             </h2>
             <p className="text-body" style={{ color: 'var(--color-text-secondary)' }}>
-              Histórias reais de transformação
+              Entre pais e alunos, voluntários e parceiros, o Projeto Crierê tem deixado marcas positivas. Veja alguns depoimentos que refletem a importância do nosso trabalho na vida de quem participa dessa jornada de aprendizado, cultura e transformação social.
             </p>
           </div>
 
