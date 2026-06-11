@@ -1,0 +1,199 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  return (
+    <header
+      className={`header ${hasScrolled ? 'header-scrolled' : ''}`}
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        background: '#FFFFFF',
+        boxShadow: hasScrolled ? '0 1px 0 rgba(0,0,0,0.07)' : 'none',
+        padding: '0 var(--space-md)',
+        transition: 'box-shadow 0.2s ease'
+      }}
+    >
+      {/* Logo */}
+      <div className="logo" style={{ marginLeft: 'var(--space-md)' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
+          <img
+            src="/images/hero/logo.png"
+            alt="Crierê"
+            style={{ height: '70px' }}
+          />
+        </Link>
+      </div>
+
+      {/* Navigation - Desktop */}
+      <nav className="nav-desktop" style={{ display: 'none' }}>
+        <div style={{ display: 'flex', gap: 'var(--space-lg)' }}>
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`nav-link ${pathname === item.href ? 'nav-link-active' : ''}`}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '15px',
+                fontWeight: '400',
+                color: pathname === item.href ? 'var(--color-primary)' : 'var(--color-text-body)',
+                textDecoration: 'none',
+                transition: 'color 0.2s ease',
+                fontWeight: pathname === item.href ? '600' : '400'
+              }}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      </nav>
+
+      {/* CTAs - Desktop */}
+      <div className="nav-ctas" style={{ display: 'none', gap: 'var(--space-sm)' }}>
+        <Link href="/contato" className="btn btn-primary">
+          Doe agora
+        </Link>
+        <Link href="/voluntarios" className="btn btn-ghost-blue">
+          Seja voluntário
+        </Link>
+      </div>
+
+      {/* Mobile Menu Button */}
+      <button
+        className="mobile-menu-btn"
+        onClick={toggleMenu}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '40px',
+          height: '40px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          fontSize: '20px',
+          color: 'var(--color-text-body)'
+        }}
+      >
+        {isMenuOpen ? '✕' : '☰'}
+      </button>
+
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div
+          className="mobile-menu"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'var(--color-trust)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 'var(--space-lg)',
+            zIndex: 1000
+          }}
+        >
+          <button
+            onClick={toggleMenu}
+            style={{
+              position: 'absolute',
+              top: 'var(--space-md)',
+              right: 'var(--space-md)',
+              background: 'none',
+              border: 'none',
+              color: 'white',
+              fontSize: '24px',
+              cursor: 'pointer'
+            }}
+          >
+            ✕
+          </button>
+
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setIsMenuOpen(false)}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '24px',
+                fontWeight: '600',
+                color: 'white',
+                textDecoration: 'none',
+                padding: 'var(--space-sm) 0'
+              }}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)', marginTop: 'var(--space-lg)' }}>
+            <Link href="/contato" className="btn btn-ghost-white" onClick={() => setIsMenuOpen(false)}>
+              Doe agora
+            </Link>
+            <Link href="/voluntarios" className="btn btn-ghost-white" onClick={() => setIsMenuOpen(false)}>
+              Seja voluntário
+            </Link>
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @media (min-width: 768px) {
+          .nav-desktop {
+            display: flex !important;
+          }
+
+          .nav-ctas {
+            display: flex !important;
+          }
+
+          .mobile-menu-btn {
+            display: none !important;
+          }
+        }
+
+        .nav-link:hover {
+          color: var(--color-primary) !important;
+        }
+      `}</style>
+    </header>
+  )
+}
+
+const NAV_ITEMS = [
+  { label: 'Home', href: '/' },
+  { label: 'Sobre', href: '/#sobre' },
+  { label: 'Faça Parte', href: '/voluntarios' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contato', href: '/contato' },
+]
