@@ -3,6 +3,42 @@
 import Header from '@/components/Header'
 import FooterNew from '@/components/FooterNew'
 
+function BentoCard({ foto, cor, flex, children, padding = 'var(--space-md)', bgSize = 'cover', bgPosition = 'center' }: {
+  foto?: string
+  cor: string
+  flex: number
+  children: React.ReactNode
+  padding?: string
+  bgSize?: string
+  bgPosition?: string
+}) {
+  return (
+    <div style={{
+      flex,
+      borderRadius: 'var(--radius-lg)',
+      overflow: 'hidden',
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: foto ? 'flex-end' : 'center',
+      alignItems: 'center',
+      padding,
+      textAlign: 'center',
+      background: foto ? 'transparent' : cor,
+      backgroundImage: foto ? `url(${foto})` : undefined,
+      backgroundSize: bgSize,
+      backgroundPosition: bgPosition,
+    }}>
+      {foto && (
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)' }} />
+      )}
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
 export default function Home() {
   return (
     <div style={{
@@ -74,192 +110,82 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Bento Grid em formato U - Ocupa 45% */}
+          {/* Bento Grid em formato U */}
           <div style={{
-            flex: '0 0 45%',
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
-            gridTemplateRows: '1.8fr 1fr 1fr',
+            display: 'flex',
             gap: 'var(--space-md)',
-            maxHeight: '380px'
+            height: '440px',
+            maxWidth: '960px',
+            margin: '0 auto',
+            width: '100%'
           }}>
-            {/* Coluna 1 - Card grande (2/3) - em cima */}
-            <div style={{
-              gridColumn: '1',
-              gridRow: '3',
-              borderRadius: 'var(--radius-lg)',
-              background: 'var(--color-trust)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 'var(--space-md)',
-              textAlign: 'center'
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-h4)',
-                fontWeight: '600',
-                color: '#ffffff',
-                margin: 0
-              }}>
-                Seja a razão do sorriso de uma criança
-              </h3>
+
+            {/* Coluna 1 */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+              <BentoCard flex={2} cor="var(--color-trust)" foto="/images/galeria/capuera.png">
+                <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-h4)', fontWeight: '600', color: '#ffffff', margin: 0 }}>
+                  Acolhimento e escuta
+                </h3>
+              </BentoCard>
+              <BentoCard flex={1} cor="var(--color-trust)" padding="var(--space-sm)">
+                <div style={{ fontSize: '24px', marginBottom: 'var(--space-xs)' }}>📍</div>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-small)', color: '#ffffff', margin: 0, fontWeight: '600' }}>Gratuito no CEU Butantã</p>
+              </BentoCard>
             </div>
 
-            {/* Coluna 1 - Card pequeno (1/3) - embaixo */}
-            <div style={{
-              gridColumn: '1',
-              gridRow: '1/3',
-              borderRadius: 'var(--radius-lg)',
-              background: 'var(--color-accent)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 'var(--space-sm)',
-              textAlign: 'center'
-            }}>
-              <div style={{
-                fontSize: '24px',
-                marginBottom: 'var(--space-xs)'
-              }}>
-                📚
-              </div>
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-small)',
-                color: '#ffffff',
-                margin: 0,
-                fontWeight: '600'
-              }}>
-                Educação
-              </p>
+            {/* Coluna 2 */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+              <div style={{ flex: 1 }}></div>
+              <BentoCard flex={2} cor="var(--color-primary)" foto="/images/galeria/bibi-miguel.jpeg">
+                <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-h4)', fontWeight: '600', color: '#ffffff', margin: 0 }}>
+                  Reforço individual
+                </h3>
+              </BentoCard>
             </div>
 
-            {/* Coluna 2 - Card único médio-grande (2/3) */}
-            <div style={{
-              gridColumn: '2',
-              gridRow: '2 / 4',
-              borderRadius: 'var(--radius-lg)',
-              background: 'var(--color-primary)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 'var(--space-md)',
-              textAlign: 'center'
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-h4)',
-                fontWeight: '600',
-                color: '#ffffff',
-                margin: 0
-              }}>
-                Capoeira e Teatro
-              </h3>
+            {/* Coluna 3 - só card no fundo */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+              <div style={{ flex: 2 }}></div>
+              <BentoCard flex={1} cor="var(--color-accent)" padding="var(--space-sm)">
+                <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-h4)', fontWeight: '700', color: '#ffffff', marginBottom: 'var(--space-xs)', marginTop: 0 }}>
+                  Junte-se a nós
+                </h3>
+                <a href="/voluntarios" className="btn btn-ghost-white" style={{ fontSize: '13px', padding: '7px 16px' }}>Seja voluntário</a>
+              </BentoCard>
             </div>
 
-            {/* Coluna 3 - Card central médio - alinhado na parte baixa do vale */}
-            <div style={{
-              gridColumn: '3',
-              gridRow: '3',
-              background: 'var(--color-trust)',
-              borderRadius: 'var(--radius-lg)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 'var(--space-md)',
-              textAlign: 'center'
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-h3)',
-                fontWeight: '700',
-                color: '#ffffff',
-                marginBottom: 'var(--space-md)'
-              }}>
-                Junte-se a nós
-              </h3>
-              <a href="/voluntarios" className="btn btn-ghost-white">
-                Seja voluntário
-              </a>
+            {/* Coluna 4 */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+              <div style={{ flex: 1 }}></div>
+              <BentoCard flex={2} cor="var(--color-accent)" foto="/images/galeria/pedron.jpeg">
+                <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-h4)', fontWeight: '600', color: '#ffffff', margin: 0 }}>
+                  Cultura e celebrações
+                </h3>
+              </BentoCard>
             </div>
 
-            {/* Coluna 4 - Card único médio-grande (2/3) - espelhado */}
-            <div style={{
-              gridColumn: '4',
-              gridRow: '2 / 4',
-              borderRadius: 'var(--radius-lg)',
-              background: 'var(--color-accent)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 'var(--space-md)',
-              textAlign: 'center'
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-h4)',
-                fontWeight: '600',
-                color: '#ffffff',
-                margin: 0
-              }}>
-                Atividades culturais
-              </h3>
-            </div>
-
-            {/* Coluna 5 - Card grande (2/3) - em cima */}
-            <div style={{
-              gridColumn: '5',
-              gridRow: '1 / 3',
-              borderRadius: 'var(--radius-lg)',
-              background: 'var(--color-trust)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 'var(--space-md)',
-              textAlign: 'center'
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-h4)',
-                fontWeight: '600',
-                color: '#ffffff',
-                margin: 0
-              }}>
-                Eventos e celebrações
-              </h3>
-            </div>
-
-            {/* Coluna 5 - Card pequeno (1/3) - embaixo */}
-            <div style={{
-              gridColumn: '5',
-              gridRow: '3',
-              background: 'var(--color-primary)',
-              borderRadius: 'var(--radius-lg)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 'var(--space-md)',
-              textAlign: 'center'
-            }}>
-              <div className="text-metric" style={{ color: '#ffffff', marginBottom: 'var(--space-xs)' }}>
-                85%
-              </div>
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-small)',
-                color: '#ffffff',
-                margin: 0
-              }}>
-                Melhoria escolar
-              </p>
+            {/* Coluna 5 */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+              <BentoCard flex={2} cor="var(--color-trust)">
+                <p style={{
+                  fontFamily: 'var(--font-adumu)',
+                  fontSize: 'var(--text-h3)',
+                  fontWeight: '400',
+                  color: '#ffffff',
+                  margin: 0,
+                  textAlign: 'right',
+                  lineHeight: 1.25,
+                  width: '100%'
+                }}>
+                  um{' '}
+                  <span style={{ color: 'var(--color-primary)', fontWeight: '700' }}>SONHO</span>
+                  <br />que precisa<br />ser vivido
+                </p>
+              </BentoCard>
+              <BentoCard flex={1} cor="var(--color-primary)" foto="/images/galeria/vero.jpeg">
+                <div className="text-metric" style={{ color: '#ffffff', marginBottom: 'var(--space-xs)' }}>↑</div>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-small)', color: '#ffffff', margin: 0 }}>Melhoria escolar</p>
+              </BentoCard>
             </div>
 
           </div>
