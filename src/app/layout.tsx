@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Providers } from './providers'
 import "./globals.css";
 import "../styles/tokens.css";
 
@@ -49,9 +48,7 @@ export default function RootLayout({
         `}</style>
       </head>
       <body>
-        <Providers>
-          {children}
-        </Providers>
+        {children}
       </body>
     </html>
   );
