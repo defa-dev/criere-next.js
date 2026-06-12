@@ -40,6 +40,45 @@ function BentoCard({ foto, cor, flex, children, padding = 'var(--space-md)', bgS
 }
 
 export default function Home() {
+  const testimonials = [
+    {
+      text: 'O projeto tem trazido muitos benefícios para o meu filho. Percebo avanços na confiança, na socialização e na forma como ele se expressa. Agradecemos o time Crierê por tudo e por tanto.',
+      author: 'Mãe do Miguel Rodrigues',
+      initial: 'M',
+      color: 'var(--color-trust)'
+    },
+    {
+      text: 'Minha filha é autista e sempre retorna das atividades do Crierê mais feliz e sociável. Melhorou muito na escola. Os tutores são maravilhosos.',
+      author: 'Mãe da Melina Ramos',
+      initial: 'M',
+      color: 'var(--color-primary)'
+    },
+    {
+      text: 'O projeto incentiva os estudos e fica nas dificuldades do aluno sem deixar de destacar também seus pontos fortes.',
+      author: 'Pai do Arthur Camargo',
+      initial: 'A',
+      color: 'var(--color-accent)'
+    },
+    {
+      text: 'Observei uma melhora nas matérias no geral. Ele está mais empenhado e participativo.',
+      author: 'Mãe do Lucas Figueiredo',
+      initial: 'L',
+      color: 'var(--color-trust)'
+    },
+    {
+      text: 'O Crierê sempre ajudou Yuri. Não só em disciplina, mas também na área comportamental.',
+      author: 'Tia do Yuri Brandão',
+      initial: 'Y',
+      color: 'var(--color-primary)'
+    },
+    {
+      text: 'O cuidado com as crianças é sem comentários. Sou muito grata — minha filha teve um desempenho escolar maravilhoso.',
+      author: 'Mãe da Sarah Bispo',
+      initial: 'S',
+      color: 'var(--color-accent)'
+    }
+  ]
+
   return (
     <div style={{
       fontFamily: 'var(--font-body)',
@@ -100,8 +139,8 @@ export default function Home() {
               justifyContent: 'center',
               flexWrap: 'wrap'
             }}>
-              <a href="/voluntarios" className="btn btn-primary">
-                Seja voluntário
+              <a href="/participe" className="btn btn-primary">
+                Participe
               </a>
             </div>
           </div>
@@ -146,7 +185,7 @@ export default function Home() {
                   fontFamily: 'var(--font-adumu)',
                   fontSize: 'clamp(32px, 4vw, 52px)',
                   fontWeight: '700',
-                  color: 'var(--color-accent)',
+                  color: 'var(--color-primary)',
                   letterSpacing: '0.08em',
                   userSelect: 'none',
                 }}>CRIERÊ</span>
@@ -155,7 +194,7 @@ export default function Home() {
                 <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-h4)', fontWeight: '700', color: '#ffffff', marginBottom: 'var(--space-xs)', marginTop: 0 }}>
                   Junte-se a nós
                 </h3>
-                <a href="/voluntarios" className="btn btn-ghost-white" style={{ fontSize: '13px', padding: '7px 16px' }}>Seja voluntário</a>
+                <a href="/participe" className="btn btn-ghost-white" style={{ fontSize: '13px', padding: '7px 16px' }}>Participe</a>
               </BentoCard>
             </div>
 
@@ -223,6 +262,95 @@ export default function Home() {
         </div>
       </section>
       
+
+      {/* Missão, Visão e Valores - Seção Simples */}
+      <section style={{
+        background: 'var(--color-bg)',
+        padding: 'var(--space-lg) 0'
+      }}>
+        <div className="container">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr auto 1fr auto 1fr',
+            gap: 'var(--space-lg)',
+            maxWidth: '1100px',
+            margin: '0 auto',
+            alignItems: 'center'
+          }}>
+            {/* Missão */}
+            <div style={{ textAlign: 'center', padding: 'var(--space-md)' }}>
+              <h3 style={{
+                fontFamily: 'var(--font-adumu)',
+                fontSize: 'var(--text-h3)',
+                fontWeight: '600',
+                marginBottom: 'var(--space-md)',
+                color: 'var(--color-trust)'
+              }}>
+                Missão
+              </h3>
+              <p style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--text-body)',
+                lineHeight: '1.6',
+                margin: 0,
+                color: 'var(--color-text-body)'
+              }}>
+                Promover o desenvolvimento integral de crianças e adolescentes em situação de vulnerabilidade por meio da educação, da cultura e do afeto, criando oportunidades para o aprendizado, a autoestima e o protagonismo juvenil.
+              </p>
+            </div>
+
+            {/* Separador */}
+            <div style={{ fontSize: '28px', color: 'var(--color-text-body)', lineHeight: 1, userSelect: 'none' }}>•</div>
+
+            {/* Visão */}
+            <div style={{ textAlign: 'center', padding: 'var(--space-md)' }}>
+              <h3 style={{
+                fontFamily: 'var(--font-adumu)',
+                fontSize: 'var(--text-h3)',
+                fontWeight: '600',
+                marginBottom: 'var(--space-md)',
+                color: 'var(--color-primary)'
+              }}>
+                Visão
+              </h3>
+              <p style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--text-body)',
+                lineHeight: '1.6',
+                margin: 0,
+                color: 'var(--color-text-body)'
+              }}>
+                Ser referência na formação complementar de crianças e adolescentes com um modelo sustentável, afetivo e transformador de educação e cidadania.
+              </p>
+            </div>
+
+            {/* Separador */}
+            <div style={{ fontSize: '28px', color: 'var(--color-text-body)', lineHeight: 1, userSelect: 'none' }}>•</div>
+
+            {/* Valores */}
+            <div style={{ textAlign: 'center', padding: 'var(--space-md)' }}>
+              <h3 style={{
+                fontFamily: 'var(--font-adumu)',
+                fontSize: 'var(--text-h3)',
+                fontWeight: '600',
+                marginBottom: 'var(--space-md)',
+                color: 'var(--color-accent)'
+              }}>
+                Valores
+              </h3>
+              <div style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--text-body)',
+                lineHeight: '1.6',
+                color: 'var(--color-text-body)'
+              }}>
+                Educação como ferramenta de transformação • Acolhimento e afeto • Valorização da cultura e identidade • Protagonismo infantojuvenil • Inclusão e equidade • Colaboração e voluntariado • Respeito e ética
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
             {/* ODS - Objetivos de Desenvolvimento Sustentável */}
       <section style={{
         background: 'var(--color-bg)',
@@ -230,25 +358,19 @@ export default function Home() {
       }}>
         <div className="container">
           <div style={{ textAlign: 'center' }}>
-            <h3 style={{
-              fontFamily: 'var(--font-adumu)',
-              fontSize: 'var(--text-h4)',
-              fontWeight: '600',
-              marginBottom: 'var(--space-lg)',
-              color: 'var(--color-trust)'
-            }}>
+            <h2 className="text-h2" style={{ marginBottom: 'var(--space-sm)', fontFamily: 'var(--font-adumu)' }}>
               <a
                 href="https://brasil.un.org/pt-br/sdgs"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  color: 'var(--color-trust)',
-                  textDecoration: 'none'
-                }}
+                style={{ color: 'var(--color-text-heading)', textDecoration: 'none' }}
               >
                 Objetivos de Desenvolvimento Sustentável
               </a>
-            </h3>
+            </h2>
+            <p className="text-body" style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-lg)' }}>
+              Agenda global da ONU com 17 objetivos para um mundo mais justo e sustentável até 2030. O Crierê orienta suas ações em torno de três deles:
+            </p>
 
             <div style={{
               display: 'flex',
@@ -321,98 +443,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Missão, Visão e Valores - Seção Simples */}
-      <section style={{
-        background: 'var(--color-bg)',
-        padding: 'var(--space-lg) 0'
-      }}>
-        <div className="container">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
-            gap: 'var(--space-lg)',
-            maxWidth: '900px',
-            margin: '0 auto'
-          }}>
-            {/* Missão */}
-            <div style={{
-              textAlign: 'center',
-              padding: 'var(--space-md)'
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-adumu)',
-                fontSize: 'var(--text-h4)',
-                fontWeight: '600',
-                marginBottom: 'var(--space-sm)',
-                color: 'var(--color-trust)'
-              }}>
-                Missão
-              </h3>
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-small)',
-                lineHeight: '1.5',
-                margin: 0,
-                color: 'var(--color-text-body)'
-              }}>
-                Promover o desenvolvimento integral de crianças e adolescentes em situação de vulnerabilidade por meio da educação, da cultura e do afeto, criando oportunidades para o aprendizado, a autoestima e o protagonismo juvenil.
-              </p>
-            </div>
-
-            {/* Visão */}
-            <div style={{
-              textAlign: 'center',
-              padding: 'var(--space-md)',
-              borderLeft: '3px solid var(--color-accent)'
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-adumu)',
-                fontSize: 'var(--text-h4)',
-                fontWeight: '600',
-                marginBottom: 'var(--space-sm)',
-                color: 'var(--color-trust)'
-              }}>
-                Visão
-              </h3>
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-small)',
-                lineHeight: '1.5',
-                margin: 0,
-                color: 'var(--color-text-body)'
-              }}>
-                Ser referência na formação complementar de crianças e adolescentes com um modelo sustentável, afetivo e transformador de educação e cidadania.
-              </p>
-            </div>
-
-            {/* Valores */}
-            <div style={{
-              textAlign: 'center',
-              padding: 'var(--space-md)',
-              borderLeft: '3px solid var(--color-trust)'
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-adumu)',
-                fontSize: 'var(--text-h4)',
-                fontWeight: '600',
-                marginBottom: 'var(--space-sm)',
-                color: 'var(--color-trust)'
-              }}>
-                Valores
-              </h3>
-              <div style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--text-small)',
-                lineHeight: '1.5',
-                color: 'var(--color-text-body)'
-              }}>
-                Educação como ferramenta de transformação • Acolhimento e afeto • Valorização da cultura e identidade • Protagonismo infantojuvenil • Inclusão e equidade • Colaboração e voluntariado • Respeito e ética
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
 
       {/* Depoimentos Section - Carrossel */}
       <section className="section">
@@ -437,497 +467,26 @@ export default function Home() {
                 display: 'flex',
                 gap: 'var(--space-md)',
                 animation: 'scroll 20s linear infinite',
-                width: 'calc(280px * 8 + var(--space-md) * 7)' // 8 cards + gaps
+                width: 'calc(220px * 12 + var(--space-md) * 11)'
               }}
             >
-              {/* Depoimento 1 */}
-              <div style={{
-                background: 'var(--color-surface)',
-                borderRadius: 'var(--radius-md)',
-                padding: 'var(--space-md)',
-                minWidth: '280px',
-                flexShrink: 0
-              }}>
-                <div style={{
-                  fontSize: '40px',
-                  color: 'var(--color-primary)',
-                  lineHeight: 1,
-                  marginBottom: 'var(--space-xs)'
-                }}>
-                  "
-                </div>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--text-small)',
-                  lineHeight: '1.4',
-                  marginBottom: 'var(--space-md)',
-                  color: 'var(--color-text-body)'
-                }}>
-                  O Projeto Crierê transformou a vida do meu filho. Hoje ele tem mais confiança na escola.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--color-primary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '12px'
-                  }}>
-                    M
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'var(--text-small)',
-                      fontWeight: '600',
-                      margin: 0
-                    }}>
-                      Maria Silva
-                    </p>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '12px',
-                      color: 'var(--color-text-secondary)',
-                      margin: 0
-                    }}>
-                      Mãe de aluno
-                    </p>
+              {[...testimonials, ...testimonials].map((t, i) => (
+                <div key={i} style={{ background: 'var(--color-surface)', borderRadius: 'var(--radius-md)', padding: 'var(--space-md)', width: '220px', flexShrink: 0, flexGrow: 0 }}>
+                  <div style={{ fontSize: '40px', color: 'var(--color-primary)', lineHeight: 1, marginBottom: 'var(--space-xs)' }}>"</div>
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-small)', lineHeight: '1.4', marginBottom: 'var(--space-md)', color: 'var(--color-text-body)' }}>
+                    {t.text}
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: t.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '12px' }}>
+                      {t.initial}
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-small)', fontWeight: '600', margin: 0 }}>{t.author}</p>
+                      <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--color-text-secondary)', margin: 0 }}>Responsável</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Depoimento 2 */}
-              <div style={{
-                background: 'var(--color-surface)',
-                borderRadius: 'var(--radius-md)',
-                padding: 'var(--space-md)',
-                minWidth: '280px',
-                flexShrink: 0
-              }}>
-                <div style={{
-                  fontSize: '40px',
-                  color: 'var(--color-primary)',
-                  lineHeight: 1,
-                  marginBottom: 'var(--space-xs)'
-                }}>
-                  "
-                </div>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--text-small)',
-                  lineHeight: '1.4',
-                  marginBottom: 'var(--space-md)',
-                  color: 'var(--color-text-body)'
-                }}>
-                  Ser voluntária no Crierê é única. Ver o brilho nos olhos das crianças não tem preço.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--color-accent)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '12px'
-                  }}>
-                    A
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'var(--text-small)',
-                      fontWeight: '600',
-                      margin: 0
-                    }}>
-                      Ana Costa
-                    </p>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '12px',
-                      color: 'var(--color-text-secondary)',
-                      margin: 0
-                    }}>
-                      Voluntária
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Depoimento 3 */}
-              <div style={{
-                background: 'var(--color-surface)',
-                borderRadius: 'var(--radius-md)',
-                padding: 'var(--space-md)',
-                minWidth: '280px',
-                flexShrink: 0
-              }}>
-                <div style={{
-                  fontSize: '40px',
-                  color: 'var(--color-primary)',
-                  lineHeight: 1,
-                  marginBottom: 'var(--space-xs)'
-                }}>
-                  "
-                </div>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--text-small)',
-                  lineHeight: '1.4',
-                  marginBottom: 'var(--space-md)',
-                  color: 'var(--color-text-body)'
-                }}>
-                  Minha filha aprendeu capoeira e fez muitos amigos. O ambiente é acolhedor e educativo.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--color-trust)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '12px'
-                  }}>
-                    C
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'var(--text-small)',
-                      fontWeight: '600',
-                      margin: 0
-                    }}>
-                      Carla Mendes
-                    </p>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '12px',
-                      color: 'var(--color-text-secondary)',
-                      margin: 0
-                    }}>
-                      Mãe de aluna
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Depoimento 4 */}
-              <div style={{
-                background: 'var(--color-surface)',
-                borderRadius: 'var(--radius-md)',
-                padding: 'var(--space-md)',
-                minWidth: '280px',
-                flexShrink: 0
-              }}>
-                <div style={{
-                  fontSize: '40px',
-                  color: 'var(--color-primary)',
-                  lineHeight: 1,
-                  marginBottom: 'var(--space-xs)'
-                }}>
-                  "
-                </div>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--text-small)',
-                  lineHeight: '1.4',
-                  marginBottom: 'var(--space-md)',
-                  color: 'var(--color-text-body)'
-                }}>
-                  Participar do projeto me ensinou muito sobre educação social e solidariedade.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--color-primary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '12px'
-                  }}>
-                    J
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'var(--text-small)',
-                      fontWeight: '600',
-                      margin: 0
-                    }}>
-                      João Santos
-                    </p>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '12px',
-                      color: 'var(--color-text-secondary)',
-                      margin: 0
-                    }}>
-                      Voluntário
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Duplicar os cards para criar loop infinito */}
-              {/* Depoimento 1 - Duplicado */}
-              <div style={{
-                background: 'var(--color-surface)',
-                borderRadius: 'var(--radius-md)',
-                padding: 'var(--space-md)',
-                minWidth: '280px',
-                flexShrink: 0
-              }}>
-                <div style={{
-                  fontSize: '40px',
-                  color: 'var(--color-primary)',
-                  lineHeight: 1,
-                  marginBottom: 'var(--space-xs)'
-                }}>
-                  "
-                </div>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--text-small)',
-                  lineHeight: '1.4',
-                  marginBottom: 'var(--space-md)',
-                  color: 'var(--color-text-body)'
-                }}>
-                  O Projeto Crierê transformou a vida do meu filho. Hoje ele tem mais confiança na escola.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--color-primary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '12px'
-                  }}>
-                    M
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'var(--text-small)',
-                      fontWeight: '600',
-                      margin: 0
-                    }}>
-                      Maria Silva
-                    </p>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '12px',
-                      color: 'var(--color-text-secondary)',
-                      margin: 0
-                    }}>
-                      Mãe de aluno
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Depoimento 2 - Duplicado */}
-              <div style={{
-                background: 'var(--color-surface)',
-                borderRadius: 'var(--radius-md)',
-                padding: 'var(--space-md)',
-                minWidth: '280px',
-                flexShrink: 0
-              }}>
-                <div style={{
-                  fontSize: '40px',
-                  color: 'var(--color-primary)',
-                  lineHeight: 1,
-                  marginBottom: 'var(--space-xs)'
-                }}>
-                  "
-                </div>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--text-small)',
-                  lineHeight: '1.4',
-                  marginBottom: 'var(--space-md)',
-                  color: 'var(--color-text-body)'
-                }}>
-                  Ser voluntária no Crierê é única. Ver o brilho nos olhos das crianças não tem preço.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--color-accent)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '12px'
-                  }}>
-                    A
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'var(--text-small)',
-                      fontWeight: '600',
-                      margin: 0
-                    }}>
-                      Ana Costa
-                    </p>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '12px',
-                      color: 'var(--color-text-secondary)',
-                      margin: 0
-                    }}>
-                      Voluntária
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Depoimento 3 - Duplicado */}
-              <div style={{
-                background: 'var(--color-surface)',
-                borderRadius: 'var(--radius-md)',
-                padding: 'var(--space-md)',
-                minWidth: '280px',
-                flexShrink: 0
-              }}>
-                <div style={{
-                  fontSize: '40px',
-                  color: 'var(--color-primary)',
-                  lineHeight: 1,
-                  marginBottom: 'var(--space-xs)'
-                }}>
-                  "
-                </div>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--text-small)',
-                  lineHeight: '1.4',
-                  marginBottom: 'var(--space-md)',
-                  color: 'var(--color-text-body)'
-                }}>
-                  Minha filha aprendeu capoeira e fez muitos amigos. O ambiente é acolhedor e educativo.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--color-trust)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '12px'
-                  }}>
-                    C
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'var(--text-small)',
-                      fontWeight: '600',
-                      margin: 0
-                    }}>
-                      Carla Mendes
-                    </p>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '12px',
-                      color: 'var(--color-text-secondary)',
-                      margin: 0
-                    }}>
-                      Mãe de aluna
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Depoimento 4 - Duplicado */}
-              <div style={{
-                background: 'var(--color-surface)',
-                borderRadius: 'var(--radius-md)',
-                padding: 'var(--space-md)',
-                minWidth: '280px',
-                flexShrink: 0
-              }}>
-                <div style={{
-                  fontSize: '40px',
-                  color: 'var(--color-primary)',
-                  lineHeight: 1,
-                  marginBottom: 'var(--space-xs)'
-                }}>
-                  "
-                </div>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--text-small)',
-                  lineHeight: '1.4',
-                  marginBottom: 'var(--space-md)',
-                  color: 'var(--color-text-body)'
-                }}>
-                  Participar do projeto me ensinou muito sobre educação social e solidariedade.
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                  <div style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--color-primary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '12px'
-                  }}>
-                    J
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'var(--text-small)',
-                      fontWeight: '600',
-                      margin: 0
-                    }}>
-                      João Santos
-                    </p>
-                    <p style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '12px',
-                      color: 'var(--color-text-secondary)',
-                      margin: 0
-                    }}>
-                      Voluntário
-                    </p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

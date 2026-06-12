@@ -34,18 +34,22 @@ export default function Header() {
         alignItems: 'center',
         background: '#FFFFFF',
         boxShadow: hasScrolled ? '0 1px 0 rgba(0,0,0,0.07)' : 'none',
-        padding: '0 var(--space-md)',
+        padding: 'var(--space-sm) var(--space-md)',
         transition: 'box-shadow 0.2s ease'
       }}
     >
       {/* Logo */}
       <div className="logo" style={{ marginLeft: 'var(--space-md)' }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
-          <img
-            src="/images/hero/logo.png"
-            alt="Crierê"
-            style={{ height: '70px' }}
-          />
+        <Link href="/" style={{ textDecoration: 'none' }}>
+          <span style={{
+            fontFamily: 'var(--font-adumu)',
+            fontSize: '28px',
+            fontWeight: '700',
+            color: 'var(--color-primary)',
+            letterSpacing: '0.06em'
+          }}>
+            CRIERÊ
+          </span>
         </Link>
       </div>
 
@@ -78,8 +82,8 @@ export default function Header() {
         <Link href="/contato" className="btn btn-primary">
           Doe agora
         </Link>
-        <Link href="/voluntarios" className="btn btn-ghost-blue">
-          Seja voluntário
+        <Link href="/participe" className="btn btn-ghost-blue">
+          Participe
         </Link>
       </div>
 
@@ -160,8 +164,8 @@ export default function Header() {
             <Link href="/contato" className="btn btn-ghost-white" onClick={() => setIsMenuOpen(false)}>
               Doe agora
             </Link>
-            <Link href="/voluntarios" className="btn btn-ghost-white" onClick={() => setIsMenuOpen(false)}>
-              Seja voluntário
+            <Link href="/participe" className="btn btn-ghost-white" onClick={() => setIsMenuOpen(false)}>
+              Participe
             </Link>
           </div>
         </div>
@@ -193,7 +197,7 @@ export default function Header() {
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'Sobre', href: '/#sobre' },
-  { label: 'Faça Parte', href: '/voluntarios' },
+  { label: 'Faça Parte', href: '/participe' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contato', href: '/contato' },
 ]
