@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react'
-import Navbar from './Navbar'
-import Footer from './Footer'
+import Header from './Header'
+import FooterNew from './FooterNew'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -9,11 +9,11 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <Box minH="100vh" display="flex" flexDirection="column">
-      <Navbar />
+      <Header />
       <Box as="main" flex="1" pt="60px">
         {children}
       </Box>
-      <Footer />
+      <FooterNew />
     </Box>
   )
 }
