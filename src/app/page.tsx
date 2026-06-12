@@ -37,22 +37,22 @@ function MobileCarousel() {
     >
       <div className="carousel-track" style={{ transform: `translateX(-${current * 100}%)` }}>
         {CAROUSEL_SLIDES.map((slide, i) => (
-          <div
-            key={i}
-            className="carousel-slide"
-            style={{ backgroundImage: `url(${slide.foto})` }}
-          >
+          <div key={i} className="carousel-slide">
+            <img
+              src={slide.foto}
+              alt={slide.titulo}
+              className="carousel-img"
+              style={{ objectPosition: slide.foto.includes('pedron') ? 'center 20%' : 'center' }}
+            />
             <div className="carousel-overlay" />
             <h3 className="carousel-title">{slide.titulo}</h3>
           </div>
         ))}
       </div>
 
-      {/* Setas */}
       <button className="carousel-arrow carousel-arrow-left" onClick={prev} aria-label="Anterior">‹</button>
       <button className="carousel-arrow carousel-arrow-right" onClick={next} aria-label="Próximo">›</button>
 
-      {/* Pontos */}
       <div className="carousel-dots">
         {CAROUSEL_SLIDES.map((_, i) => (
           <button
@@ -629,10 +629,10 @@ export default function Home() {
           display: none;
           position: relative;
           width: 100%;
-          height: 300px;
           border-radius: var(--radius-lg);
           overflow: hidden;
           margin-top: var(--space-md);
+          aspect-ratio: 4 / 3;
         }
 
         @media (max-width: 767px) {
@@ -641,31 +641,40 @@ export default function Home() {
 
         .carousel-track {
           display: flex;
+          width: 100%;
           height: 100%;
-          transition: transform 0.45s ease;
+          transition: transform 0.4s ease;
+          will-change: transform;
         }
 
         .carousel-slide {
           flex: 0 0 100%;
-          height: 100%;
-          background-size: cover;
-          background-position: center;
           position: relative;
+          overflow: hidden;
           display: flex;
           align-items: flex-end;
           justify-content: center;
-          padding: var(--space-md);
+        }
+
+        .carousel-img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
         }
 
         .carousel-overlay {
           position: absolute;
           inset: 0;
           background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+          z-index: 1;
         }
 
         .carousel-title {
           position: relative;
-          z-index: 1;
+          z-index: 2;
           font-family: var(--font-body);
           font-size: var(--text-h4);
           font-weight: 600;
@@ -678,7 +687,7 @@ export default function Home() {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          background: rgba(255,255,255,0.18);
+          background: rgba(0,0,0,0.3);
           border: none;
           color: #ffffff;
           font-size: 28px;
@@ -690,12 +699,11 @@ export default function Home() {
           display: flex;
           align-items: center;
           justify-content: center;
-          z-index: 2;
-          backdrop-filter: blur(4px);
+          z-index: 3;
         }
 
-        .carousel-arrow-left  { left: var(--space-sm); }
-        .carousel-arrow-right { right: var(--space-sm); }
+        .carousel-arrow-left  { left: 10px; }
+        .carousel-arrow-right { right: 10px; }
 
         .carousel-dots {
           position: absolute;
@@ -705,7 +713,7 @@ export default function Home() {
           display: flex;
           justify-content: center;
           gap: 6px;
-          z-index: 2;
+          z-index: 3;
         }
 
         .carousel-dot {
