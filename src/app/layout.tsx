@@ -3,7 +3,6 @@ import "./globals.css";
 import "../styles/tokens.css";
 
 export const metadata: Metadata = {
-  icons: { icon: '/images/hero/criere.png' },
   title: "Projeto Crierê - Educação e Cultura para Crianças",
   description: "ONG dedicada ao apoio pedagógico e atividades culturais para crianças e adolescentes. Venha sonhar com a gente!",
   keywords: "ONG, educação, cultura, crianças, voluntariado, apoio pedagógico",
