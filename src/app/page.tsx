@@ -146,7 +146,7 @@ export default function Home() {
           </div>
 
           {/* Bento Grid em formato U */}
-          <div style={{
+          <div className="bento-grid-u" style={{
             display: 'flex',
             gap: 'var(--space-md)',
             height: '440px',
@@ -269,7 +269,7 @@ export default function Home() {
         padding: 'var(--space-lg) 0'
       }}>
         <div className="container">
-          <div style={{
+          <div className="mvv-grid" style={{
             display: 'grid',
             gridTemplateColumns: '1fr auto 1fr auto 1fr',
             gap: 'var(--space-lg)',
@@ -300,7 +300,7 @@ export default function Home() {
             </div>
 
             {/* Separador */}
-            <div style={{ fontSize: '28px', color: 'var(--color-text-body)', lineHeight: 1, userSelect: 'none' }}>•</div>
+            <div className="mvv-sep" style={{ fontSize: '28px', color: 'var(--color-text-body)', lineHeight: 1, userSelect: 'none' }}>•</div>
 
             {/* Visão */}
             <div style={{ textAlign: 'center', padding: 'var(--space-md)' }}>
@@ -325,7 +325,7 @@ export default function Home() {
             </div>
 
             {/* Separador */}
-            <div style={{ fontSize: '28px', color: 'var(--color-text-body)', lineHeight: 1, userSelect: 'none' }}>•</div>
+            <div className="mvv-sep" style={{ fontSize: '28px', color: 'var(--color-text-body)', lineHeight: 1, userSelect: 'none' }}>•</div>
 
             {/* Valores */}
             <div style={{ textAlign: 'center', padding: 'var(--space-md)' }}>
@@ -551,119 +551,21 @@ export default function Home() {
           }
         }
 
-        /* Responsividade para o Bento Grid */
-        @media (max-width: 1024px) {
-          .bento-grid-u {
-            grid-template-columns: repeat(3, 1fr) !important;
-            grid-template-rows: repeat(4, 1fr) !important;
-            min-height: 600px !important;
-          }
-
-          /* Reorganiza os cards em telas menores */
-          .bento-grid-u > div:nth-child(1) {
-            grid-column: 1 !important;
-            grid-row: 1 !important;
-          }
-          .bento-grid-u > div:nth-child(2) {
-            grid-column: 1 !important;
-            grid-row: 2 / 4 !important;
-          }
-          .bento-grid-u > div:nth-child(3) {
-            grid-column: 2 / 4 !important;
-            grid-row: 1 / 3 !important;
-          }
-          .bento-grid-u > div:nth-child(4) {
-            grid-column: 3 !important;
-            grid-row: 1 !important;
-          }
-          .bento-grid-u > div:nth-child(5) {
-            grid-column: 2 / 4 !important;
-            grid-row: 3 / 4 !important;
-          }
-          .bento-grid-u > div:nth-child(6) {
-            grid-column: 3 !important;
-            grid-row: 2 !important;
-          }
-        }
-
-        @media (max-width: 768px) {
-          /* Hero Section - Ajusta proporções */
-          section:first-of-type > .container {
-            flex-direction: column !important;
-          }
-
-          section:first-of-type > .container > div:first-child {
-            flex: 0 0 auto !important;
-            margin-bottom: var(--space-lg) !important;
-          }
-
-          /* Bento Grid Mobile */
-          .bento-grid-u {
-            grid-template-columns: 1fr !important;
-            grid-template-rows: repeat(6, 120px) !important;
-            min-height: auto !important;
-            gap: var(--space-sm) !important;
-          }
-
-          /* Em mobile, cada card ocupa uma linha */
-          .bento-grid-u > div {
-            grid-column: 1 !important;
-            grid-row: auto !important;
-          }
-
-          /* Ajusta padding dos cards em mobile */
-          .bento-grid-u > div {
-            padding: var(--space-sm) !important;
-          }
-
-          /* Ajusta fonte dos títulos em mobile */
-          .bento-grid-u h2 {
-            font-size: var(--text-h3) !important;
-          }
-
-          .bento-grid-u h3 {
-            font-size: var(--text-small) !important;
-            font-weight: 600 !important;
-          }
-
-          /* Oculta texto descritivo longo em mobile */
-          .bento-grid-u > div:nth-child(3) p {
-            display: none !important;
-          }
-
-          /* Simplifica o card CTA em mobile */
-          .bento-grid-u > div:nth-child(5) {
-            flex-direction: column !important;
-            text-align: center !important;
-            gap: var(--space-xs) !important;
-          }
-
-          .bento-grid-u > div:nth-child(5) > div {
-            margin-bottom: var(--space-xs) !important;
-          }
-        }
-
-        /* Accessibility improvements */
-        @media (prefers-reduced-motion: reduce) {
-          .bento-grid-u > div {
-            transition: none !important;
-          }
-        }
-
-        /* Focus states for accessibility */
-        .bento-grid-u a:focus-visible {
-          outline: 2px solid var(--color-primary) !important;
-          outline-offset: 2px !important;
-        }
-
-        /* Hover states for cards */
-        .bento-grid-u > div {
+        /* Bento Grid — oculto em mobile, visível a partir de 768px */
+        .bento-grid-u {
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .bento-grid-u > div:hover {
-          transform: translateY(-2px);
-          box-shadow: var(--shadow-card);
+        @media (max-width: 767px) {
+          .bento-grid-u {
+            display: none !important;
+          }
+          .mvv-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .mvv-sep {
+            display: none !important;
+          }
         }
       `}</style>
     </div>
