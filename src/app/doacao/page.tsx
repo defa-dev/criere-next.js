@@ -1,15 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Header from '@/components/Header'
 import FooterNew from '@/components/FooterNew'
 
 const VALORES = [30, 50, 100]
 const WA = '5511947481846'
 
-function waLink(valor: number | string, tipo: 'pontual' | 'mensal') {
-  const freq = tipo === 'mensal' ? ' por mês' : ''
-  const msg = `Olá! Quero fazer uma doação de R$${valor}${freq} para o Crierê.`
+function waLink(valor: number | string) {
+  const msg = `Olá! Quero fazer uma doação mensal de R$${valor} para o Crierê.`
   return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`
 }
 
@@ -44,14 +44,52 @@ function CopyButton({ text }: { text: string }) {
   )
 }
 
+const STATUS_MSG = {
+  sucesso: { bg: '#d1fae5', cor: '#065f46', texto: '🎉 Doação confirmada! Muito obrigado pelo seu apoio ao Crierê.' },
+  pendente: { bg: '#fef9c3', cor: '#854d0e', texto: '⏳ Pagamento em processamento. Te avisamos assim que confirmar.' },
+  erro:    { bg: '#fee2e2', cor: '#991b1b', texto: '❌ Algo deu errado no pagamento. Tente novamente ou use o PIX.' },
+}
+
+function StatusBanner() {
+  const searchParams = useSearchParams()
+  const status = searchParams.get('status') as keyof typeof STATUS_MSG | null
+  if (!status || !STATUS_MSG[status]) return null
+  const { bg, cor, texto } = STATUS_MSG[status]
+  return (
+    <div style={{ background: bg, color: cor, padding: 'var(--space-sm) var(--space-md)', textAlign: 'center', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body)', fontWeight: '500' }}>
+      {texto}
+    </div>
+  )
+}
+
 export default function DoeAgora() {
   const [bannerVisible, setBannerVisible] = useState(true)
-  const [tipo, setTipo] = useState<'pontual' | 'mensal'>('mensal')
+  const [tipo, setTipo] = useState<'pontual' | 'mensal'>('pontual')
   const [valorCustom, setValorCustom] = useState('')
   const [mostrarCustom, setMostrarCustom] = useState(false)
+  const [loadingValor, setLoadingValor] = useState<number | string | null>(null)
+
+  async function iniciarPagamento(valor: number | string) {
+    setLoadingValor(valor)
+    try {
+      const res = await fetch('/api/criar-preferencia', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ valor: Number(valor) }),
+      })
+      const data = await res.json()
+      window.location.href = data.url
+    } catch {
+      setLoadingValor(null)
+    }
+  }
 
   return (
     <div style={{ fontFamily: 'var(--font-body)', color: 'var(--color-text-body)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+
+      <Suspense>
+        <StatusBanner />
+      </Suspense>
 
       {/* Barra de aviso */}
       {bannerVisible && (
@@ -122,10 +160,10 @@ export default function DoeAgora() {
 
           {/* Toggle Mensal / Pontual */}
           <div style={{ display: 'flex', background: 'var(--color-surface)', borderRadius: '999px', padding: '4px', gap: '4px', alignSelf: 'flex-start', marginBottom: 'var(--space-md)' }}>
-            {(['mensal', 'pontual'] as const).map((t) => (
+            {(['pontual', 'mensal'] as const).map((t) => (
               <button
                 key={t}
-                onClick={() => setTipo(t)}
+                onClick={() => { setTipo(t); setMostrarCustom(false); setValorCustom('') }}
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: 'var(--text-small)',
@@ -140,56 +178,113 @@ export default function DoeAgora() {
                   transition: 'all 0.18s ease',
                 }}
               >
-                {t === 'mensal' ? 'Mensal' : 'Pontual'}
+                {t === 'pontual' ? 'Pontual' : 'Mensal'}
               </button>
             ))}
           </div>
 
-          {/* Valores pré-definidos */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-sm)', marginBottom: 'var(--space-sm)' }}>
-            {VALORES.map((v) => (
-              <a
-                key={v}
-                href={waLink(v, tipo)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary doe-pick"
-              >
-                R${v}
-              </a>
-            ))}
-            <button
-              onClick={() => setMostrarCustom(!mostrarCustom)}
-              className="btn btn-ghost-blue doe-pick"
-            >
-              Outro valor
-            </button>
-          </div>
-
-          {mostrarCustom && (
-            <div style={{ display: 'flex', gap: 'var(--space-sm)', alignItems: 'center', marginBottom: 'var(--space-sm)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ fontWeight: '600', fontSize: 'var(--text-body)' }}>R$</span>
-                <input
-                  type="number"
-                  min="1"
-                  placeholder="Valor"
-                  value={valorCustom}
-                  onChange={(e) => setValorCustom(e.target.value)}
-                  className="input"
-                  style={{ width: '110px' }}
-                />
+          {tipo === 'pontual' ? (
+            <>
+              {/* Valores pré-definidos — MP Checkout */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-sm)', marginBottom: 'var(--space-sm)' }}>
+                {VALORES.map((v) => (
+                  <button
+                    key={v}
+                    onClick={() => iniciarPagamento(v)}
+                    disabled={loadingValor !== null}
+                    className="btn btn-primary doe-pick"
+                    style={{ opacity: loadingValor !== null && loadingValor !== v ? 0.5 : 1 }}
+                  >
+                    {loadingValor === v ? '...' : `R$${v}`}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setMostrarCustom(!mostrarCustom)}
+                  disabled={loadingValor !== null}
+                  className="btn btn-ghost-blue doe-pick"
+                >
+                  Outro valor
+                </button>
               </div>
-              <a
-                href={valorCustom ? waLink(valorCustom, tipo) : '#'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-                style={{ opacity: valorCustom ? 1 : 0.4, pointerEvents: valorCustom ? 'auto' : 'none' }}
-              >
-                Continuar
-              </a>
-            </div>
+
+              {mostrarCustom && (
+                <div style={{ display: 'flex', gap: 'var(--space-sm)', alignItems: 'center', marginBottom: 'var(--space-sm)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ fontWeight: '600', fontSize: 'var(--text-body)' }}>R$</span>
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="Valor"
+                      value={valorCustom}
+                      onChange={(e) => setValorCustom(e.target.value)}
+                      className="input"
+                      style={{ width: '110px' }}
+                    />
+                  </div>
+                  <button
+                    onClick={() => valorCustom && iniciarPagamento(valorCustom)}
+                    disabled={!valorCustom || loadingValor !== null}
+                    className="btn btn-primary"
+                    style={{ opacity: valorCustom ? 1 : 0.4 }}
+                  >
+                    {loadingValor === valorCustom ? '...' : 'Continuar'}
+                  </button>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              {/* Mensal — via WhatsApp por enquanto */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-sm)', marginBottom: 'var(--space-sm)' }}>
+                {VALORES.map((v) => (
+                  <a
+                    key={v}
+                    href={waLink(v)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary doe-pick"
+                  >
+                    R${v}
+                  </a>
+                ))}
+                <button
+                  onClick={() => setMostrarCustom(!mostrarCustom)}
+                  className="btn btn-ghost-blue doe-pick"
+                >
+                  Outro valor
+                </button>
+              </div>
+
+              {mostrarCustom && (
+                <div style={{ display: 'flex', gap: 'var(--space-sm)', alignItems: 'center', marginBottom: 'var(--space-sm)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ fontWeight: '600', fontSize: 'var(--text-body)' }}>R$</span>
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="Valor"
+                      value={valorCustom}
+                      onChange={(e) => setValorCustom(e.target.value)}
+                      className="input"
+                      style={{ width: '110px' }}
+                    />
+                  </div>
+                  <a
+                    href={valorCustom ? waLink(valorCustom) : '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                    style={{ opacity: valorCustom ? 1 : 0.4, pointerEvents: valorCustom ? 'auto' : 'none' }}
+                  >
+                    Continuar
+                  </a>
+                </div>
+              )}
+
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-small)', color: 'var(--color-text-secondary)', margin: '0 0 var(--space-sm) 0' }}>
+                Você será redirecionado ao WhatsApp para combinarmos os detalhes da doação recorrente.
+              </p>
+            </>
           )}
 
           {/* PIX inline */}
