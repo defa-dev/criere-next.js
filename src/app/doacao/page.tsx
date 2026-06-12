@@ -163,7 +163,7 @@ export default function DoeAgora() {
             {(['pontual', 'mensal'] as const).map((t) => (
               <button
                 key={t}
-                onClick={() => { setTipo(t); setMostrarCustom(false); setValorCustom('') }}
+                onClick={() => { if (t === 'mensal') return; setTipo(t); setMostrarCustom(false); setValorCustom('') }}
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: 'var(--text-small)',
@@ -171,10 +171,11 @@ export default function DoeAgora() {
                   padding: '6px 20px',
                   borderRadius: '999px',
                   border: 'none',
-                  cursor: 'pointer',
+                  cursor: t === 'mensal' ? 'not-allowed' : 'pointer',
                   background: tipo === t ? '#ffffff' : 'transparent',
                   color: tipo === t ? 'var(--color-trust)' : 'var(--color-text-secondary)',
                   boxShadow: tipo === t ? '0 1px 4px rgba(0,0,0,0.12)' : 'none',
+                  opacity: t === 'mensal' ? 0.4 : 1,
                   transition: 'all 0.18s ease',
                 }}
               >
