@@ -1,7 +1,71 @@
 'use client'
 
+import { useState, useEffect, useRef } from 'react'
 import Header from '@/components/Header'
 import FooterNew from '@/components/FooterNew'
+
+const CAROUSEL_SLIDES = [
+  { foto: '/images/galeria/capuera.png',     titulo: 'Acolhimento e escuta' },
+  { foto: '/images/galeria/bibi-miguel.jpeg', titulo: 'Reforço individual' },
+  { foto: '/images/galeria/pedron.jpeg',      titulo: 'Cultura e celebrações' },
+  { foto: '/images/galeria/vero.jpeg',        titulo: 'Melhoria escolar' },
+]
+
+function MobileCarousel() {
+  const [current, setCurrent] = useState(0)
+  const touchStartX = useRef(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent(i => (i + 1) % CAROUSEL_SLIDES.length)
+    }, 3500)
+    return () => clearInterval(timer)
+  }, [])
+
+  function prev() { setCurrent(i => (i - 1 + CAROUSEL_SLIDES.length) % CAROUSEL_SLIDES.length) }
+  function next() { setCurrent(i => (i + 1) % CAROUSEL_SLIDES.length) }
+
+  return (
+    <div
+      className="mobile-carousel"
+      onTouchStart={e => { touchStartX.current = e.touches[0].clientX }}
+      onTouchEnd={e => {
+        const diff = touchStartX.current - e.changedTouches[0].clientX
+        if (diff > 40) next()
+        else if (diff < -40) prev()
+      }}
+    >
+      <div className="carousel-track" style={{ transform: `translateX(-${current * 100}%)` }}>
+        {CAROUSEL_SLIDES.map((slide, i) => (
+          <div
+            key={i}
+            className="carousel-slide"
+            style={{ backgroundImage: `url(${slide.foto})` }}
+          >
+            <div className="carousel-overlay" />
+            <h3 className="carousel-title">{slide.titulo}</h3>
+          </div>
+        ))}
+      </div>
+
+      {/* Setas */}
+      <button className="carousel-arrow carousel-arrow-left" onClick={prev} aria-label="Anterior">‹</button>
+      <button className="carousel-arrow carousel-arrow-right" onClick={next} aria-label="Próximo">›</button>
+
+      {/* Pontos */}
+      <div className="carousel-dots">
+        {CAROUSEL_SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`carousel-dot${i === current ? ' active' : ''}`}
+            aria-label={`Slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 function BentoCard({ foto, cor, flex, children, padding = 'var(--space-md)', bgSize = 'cover', bgPosition = 'center' }: {
   foto?: string
@@ -233,6 +297,8 @@ export default function Home() {
             </div>
 
           </div>
+
+          <MobileCarousel />
         </div>
       </section>
 
@@ -551,21 +617,111 @@ export default function Home() {
           }
         }
 
-        /* Bento Grid — oculto em mobile, visível a partir de 768px */
-        .bento-grid-u {
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        /* Bento Grid — oculto em mobile */
+        @media (max-width: 767px) {
+          .bento-grid-u { display: none !important; }
+          .mvv-grid { grid-template-columns: 1fr !important; }
+          .mvv-sep { display: none !important; }
+        }
+
+        /* Carrossel mobile */
+        .mobile-carousel {
+          display: none;
+          position: relative;
+          width: 100%;
+          height: 300px;
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          margin-top: var(--space-md);
         }
 
         @media (max-width: 767px) {
-          .bento-grid-u {
-            display: none !important;
-          }
-          .mvv-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .mvv-sep {
-            display: none !important;
-          }
+          .mobile-carousel { display: block; }
+        }
+
+        .carousel-track {
+          display: flex;
+          height: 100%;
+          transition: transform 0.45s ease;
+        }
+
+        .carousel-slide {
+          flex: 0 0 100%;
+          height: 100%;
+          background-size: cover;
+          background-position: center;
+          position: relative;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          padding: var(--space-md);
+        }
+
+        .carousel-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+        }
+
+        .carousel-title {
+          position: relative;
+          z-index: 1;
+          font-family: var(--font-body);
+          font-size: var(--text-h4);
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0 0 var(--space-lg) 0;
+          text-align: center;
+        }
+
+        .carousel-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(255,255,255,0.18);
+          border: none;
+          color: #ffffff;
+          font-size: 28px;
+          line-height: 1;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 2;
+          backdrop-filter: blur(4px);
+        }
+
+        .carousel-arrow-left  { left: var(--space-sm); }
+        .carousel-arrow-right { right: var(--space-sm); }
+
+        .carousel-dots {
+          position: absolute;
+          bottom: 10px;
+          left: 0;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          gap: 6px;
+          z-index: 2;
+        }
+
+        .carousel-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          border: none;
+          background: rgba(255,255,255,0.45);
+          cursor: pointer;
+          padding: 0;
+          transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .carousel-dot.active {
+          background: #ffffff;
+          transform: scale(1.3);
         }
       `}</style>
     </div>
