@@ -33,7 +33,7 @@ export default function Footer() {
               fontStyle: 'italic',
               opacity: 0.85
             }}>
-              "Vem sonhar com a gente"
+              &ldquo;Vem sonhar com a gente&rdquo;
             </p>
 
             {/* Redes Sociais */}
@@ -42,18 +42,7 @@ export default function Footer() {
                 href="https://instagram.com/projeto.criere"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.1)',
-                  color: 'white',
-                  textDecoration: 'none',
-                  transition: 'background 0.2s ease'
-                }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', color: 'white', textDecoration: 'none', transition: 'background 0.2s ease' }}
               >
                 📸
               </a>
@@ -61,18 +50,7 @@ export default function Footer() {
                 href="https://wa.me/5511947481846"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.1)',
-                  color: 'white',
-                  textDecoration: 'none',
-                  transition: 'background 0.2s ease'
-                }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', color: 'white', textDecoration: 'none', transition: 'background 0.2s ease' }}
               >
                 💬
               </a>

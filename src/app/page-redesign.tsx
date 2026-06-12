@@ -346,7 +346,7 @@ export default function Home() {
                 lineHeight: 1,
                 marginBottom: 'var(--space-sm)'
               }}>
-                "
+                &ldquo;
               </div>
               <p className="text-body" style={{ marginBottom: 'var(--space-lg)' }}>
                 O Projeto Crierê transformou a vida do meu filho. Hoje ele tem mais confiança na escola e descobriu um talento incrível na capoeira.
@@ -392,7 +392,7 @@ export default function Home() {
                 lineHeight: 1,
                 marginBottom: 'var(--space-sm)'
               }}>
-                "
+                &ldquo;
               </div>
               <p className="text-body" style={{ marginBottom: 'var(--space-lg)' }}>
                 Ser voluntária no Crierê é uma experiência única. Ver o brilho nos olhos das crianças quando aprendem algo novo não tem preço.

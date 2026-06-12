@@ -13,7 +13,6 @@ function waLink(valor: number | string, tipo: 'pontual' | 'mensal') {
   return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`
 }
 
-
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false)
   function copy() {
@@ -272,7 +271,6 @@ export default function DoeAgora() {
       <FooterNew />
 
       <style jsx>{`
-        /* ── Desktop: split em duas colunas ── */
         .doe-section {
           display: grid;
           grid-template-areas:
@@ -330,7 +328,6 @@ export default function DoeAgora() {
           justify-content: flex-start;
           padding: var(--space-lg) var(--space-xl) var(--space-xl) var(--space-xl);
         }
-
         .doe-eyebrow {
           font-family: var(--font-body);
           font-size: var(--text-eyebrow);
@@ -375,8 +372,6 @@ export default function DoeAgora() {
         .doe-link:hover {
           opacity: 1;
         }
-
-        /* ── Mobile: empilhar com mídia entre texto e botões ── */
         @media (max-width: 767px) {
           .doe-section {
             grid-template-areas:

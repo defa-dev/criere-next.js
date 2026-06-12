@@ -56,30 +56,45 @@ export default function Header() {
       {/* Navigation - Desktop */}
       <nav className="nav-desktop" style={{ display: 'none' }}>
         <div style={{ display: 'flex', gap: 'var(--space-lg)' }}>
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`nav-link ${pathname === item.href ? 'nav-link-active' : ''}`}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '15px',
-                fontWeight: '400',
-                color: pathname === item.href ? 'var(--color-primary)' : 'var(--color-text-body)',
-                textDecoration: 'none',
-                transition: 'color 0.2s ease',
-                fontWeight: pathname === item.href ? '600' : '400'
-              }}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.href ? (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`nav-link ${pathname === item.href ? 'nav-link-active' : ''}`}
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '15px',
+                  fontWeight: pathname === item.href ? '600' : '400',
+                  color: pathname === item.href ? 'var(--color-primary)' : 'var(--color-text-body)',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s ease',
+                }}
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <span
+                key={item.label}
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '15px',
+                  fontWeight: '400',
+                  color: 'var(--color-text-body)',
+                  opacity: 0.35,
+                  cursor: 'default',
+                }}
+              >
+                {item.label}
+              </span>
+            )
+          )}
         </div>
       </nav>
 
       {/* CTAs - Desktop */}
       <div className="nav-ctas" style={{ display: 'none', gap: 'var(--space-sm)' }}>
-        <Link href="/contato" className="btn btn-primary">
+        <Link href="/doacao" className="btn btn-primary">
           Doe agora
         </Link>
         <Link href="/participe" className="btn btn-ghost-blue">
@@ -142,26 +157,28 @@ export default function Header() {
             ✕
           </button>
 
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsMenuOpen(false)}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '24px',
-                fontWeight: '600',
-                color: 'white',
-                textDecoration: 'none',
-                padding: 'var(--space-sm) 0'
-              }}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.href ? (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
+                style={{ fontFamily: 'var(--font-body)', fontSize: '24px', fontWeight: '600', color: 'white', textDecoration: 'none', padding: 'var(--space-sm) 0' }}
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <span
+                key={item.label}
+                style={{ fontFamily: 'var(--font-body)', fontSize: '24px', fontWeight: '600', color: 'white', opacity: 0.35, padding: 'var(--space-sm) 0' }}
+              >
+                {item.label}
+              </span>
+            )
+          )}
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)', marginTop: 'var(--space-lg)' }}>
-            <Link href="/contato" className="btn btn-ghost-white" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/doacao" className="btn btn-ghost-white" onClick={() => setIsMenuOpen(false)}>
               Doe agora
             </Link>
             <Link href="/participe" className="btn btn-ghost-white" onClick={() => setIsMenuOpen(false)}>
@@ -198,6 +215,6 @@ const NAV_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'Sobre', href: '/#sobre' },
   { label: 'Faça Parte', href: '/participe' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contato', href: '/contato' },
+  { label: 'Blog', href: null },
+  { label: 'Contato', href: '/doacao' },
 ]

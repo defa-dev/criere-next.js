@@ -394,8 +394,8 @@ export default function Home() {
                     width: 'auto',
                     transition: 'transform 0.2s ease'
                   }}
-                  onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-                  onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                  onMouseOver={(e) => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.05)'}
+                  onMouseOut={(e) => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
                 />
               </a>
 
@@ -414,8 +414,8 @@ export default function Home() {
                     width: 'auto',
                     transition: 'transform 0.2s ease'
                   }}
-                  onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-                  onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                  onMouseOver={(e) => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.05)'}
+                  onMouseOut={(e) => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
                 />
               </a>
 
@@ -434,8 +434,8 @@ export default function Home() {
                     width: 'auto',
                     transition: 'transform 0.2s ease'
                   }}
-                  onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-                  onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                  onMouseOver={(e) => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.05)'}
+                  onMouseOut={(e) => (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'}
                 />
               </a>
             </div>
@@ -472,7 +472,7 @@ export default function Home() {
             >
               {[...testimonials, ...testimonials].map((t, i) => (
                 <div key={i} style={{ background: 'var(--color-surface)', borderRadius: 'var(--radius-md)', padding: 'var(--space-md)', width: '220px', flexShrink: 0, flexGrow: 0 }}>
-                  <div style={{ fontSize: '40px', color: 'var(--color-primary)', lineHeight: 1, marginBottom: 'var(--space-xs)' }}>"</div>
+                  <div style={{ fontSize: '40px', color: 'var(--color-primary)', lineHeight: 1, marginBottom: 'var(--space-xs)' }}>&ldquo;</div>
                   <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-small)', lineHeight: '1.4', marginBottom: 'var(--space-md)', color: 'var(--color-text-body)' }}>
                     {t.text}
                   </p>

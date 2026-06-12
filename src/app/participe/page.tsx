@@ -36,8 +36,8 @@ const funcoes = [
 export default function Participe() {
   const [aba, setAba] = useState<'voluntario' | 'parceiro'>('voluntario')
 
-  const [formVol, setFormVol] = useState({ nome: '', email: '', telefone: '', idade: '', funcao: '', motivo: '' })
-  const [formPar, setFormPar] = useState({ nome: '', organizacao: '', email: '', telefone: '', contribuicao: '', mensagem: '' })
+  const [formVol, setFormVol] = useState({ nome: '', email: '', telefone: '', funcao: '', motivo: '' })
+  const [formPar, setFormPar] = useState({ nome: '', email: '', telefone: '', contribuicao: '', comentarios: '' })
   const [enviadoVol, setEnviadoVol] = useState(false)
   const [enviadoPar, setEnviadoPar] = useState(false)
 
@@ -46,6 +46,38 @@ export default function Participe() {
   }
   function handlePar(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     setFormPar({ ...formPar, [e.target.name]: e.target.value })
+  }
+
+  async function submitPar(e: React.FormEvent) {
+    e.preventDefault()
+    const body = new URLSearchParams({
+      'entry.1701372806': formPar.nome,
+      'entry.28781093': formPar.email,
+      'entry.84504438': formPar.telefone,
+      'entry.1352065301': formPar.contribuicao,
+      'entry.2022623379': formPar.comentarios,
+    })
+    await fetch(
+      'https://docs.google.com/forms/d/e/1FAIpQLSd7zjJnfHynvzn8Xw5WPxsSlY7Ns0fvDCMBJ5xA0PWDPerFnw/formResponse',
+      { method: 'POST', body, mode: 'no-cors' }
+    )
+    setEnviadoPar(true)
+  }
+
+  async function submitVol(e: React.FormEvent) {
+    e.preventDefault()
+    const body = new URLSearchParams({
+      'entry.1701372806': formVol.nome,
+      'entry.28781093': formVol.email,
+      'entry.84504438': formVol.telefone,
+      'entry.1352065301': formVol.funcao,
+      'entry.2022623379': formVol.motivo,
+    })
+    await fetch(
+      'https://docs.google.com/forms/d/e/1FAIpQLSdqMyTL3f5fifiHv19bGKM3zfJzIla6o-qJhsU5kfzsOSNjjg/formResponse',
+      { method: 'POST', body, mode: 'no-cors' }
+    )
+    setEnviadoVol(true)
   }
 
   return (
@@ -77,7 +109,7 @@ export default function Participe() {
 
       {/* Abas */}
       <div style={{ background: 'var(--color-bg)', borderBottom: '1px solid rgba(0,0,0,0.07)', position: 'sticky', top: '57px', zIndex: 10 }}>
-        <div className="container" style={{ display: 'flex' }}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
           {(['voluntario', 'parceiro'] as const).map((tab) => (
             <button
               key={tab}
@@ -163,7 +195,7 @@ export default function Participe() {
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={(e) => { e.preventDefault(); setEnviadoVol(true) }} style={{ background: '#fff', borderRadius: 'var(--radius-lg)', padding: 'var(--space-lg)', boxShadow: 'var(--shadow-card)', display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+                  <form onSubmit={submitVol} style={{ background: '#fff', borderRadius: 'var(--radius-lg)', padding: 'var(--space-lg)', boxShadow: 'var(--shadow-card)', display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
                     <div>
                       <label className="label" htmlFor="vol-nome">Nome completo</label>
                       <input className="input" id="vol-nome" name="nome" type="text" placeholder="Seu nome" required value={formVol.nome} onChange={handleVol} />
@@ -178,21 +210,15 @@ export default function Participe() {
                         <input className="input" id="vol-telefone" name="telefone" type="tel" placeholder="(11) 99999-9999" value={formVol.telefone} onChange={handleVol} />
                       </div>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 'var(--space-md)' }}>
-                      <div>
-                        <label className="label" htmlFor="vol-idade">Idade</label>
-                        <input className="input" id="vol-idade" name="idade" type="number" placeholder="Ex: 24" min="16" value={formVol.idade} onChange={handleVol} />
-                      </div>
-                      <div>
-                        <label className="label" htmlFor="vol-funcao">Função de interesse</label>
-                        <select className="input" id="vol-funcao" name="funcao" required value={formVol.funcao} onChange={handleVol} style={{ cursor: 'pointer' }}>
-                          <option value="">Selecione uma função</option>
-                          <option value="tutor">Tutor Fixo</option>
-                          <option value="coordenador">Coordenador</option>
-                          <option value="oficineiro">Oficineiro</option>
-                          <option value="operacional">Operacional</option>
-                        </select>
-                      </div>
+                    <div>
+                      <label className="label" htmlFor="vol-funcao">Como quer ajudar?</label>
+                      <select className="input" id="vol-funcao" name="funcao" required value={formVol.funcao} onChange={handleVol} style={{ cursor: 'pointer' }}>
+                        <option value="">Selecione uma opção</option>
+                        <option value="Tutoria">Tutoria</option>
+                        <option value="Oficina de cultura">Oficina de cultura</option>
+                        <option value="Apoio operacional">Apoio operacional</option>
+                        <option value="Pau pra toda obra">Pau pra toda obra</option>
+                      </select>
                     </div>
                     <div>
                       <label className="label" htmlFor="vol-motivo">Por que quer fazer parte do Crierê?</label>
@@ -263,16 +289,10 @@ export default function Participe() {
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={(e) => { e.preventDefault(); setEnviadoPar(true) }} style={{ background: '#fff', borderRadius: 'var(--radius-lg)', padding: 'var(--space-lg)', boxShadow: 'var(--shadow-card)', display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-md)' }}>
-                      <div>
-                        <label className="label" htmlFor="par-nome">Nome</label>
-                        <input className="input" id="par-nome" name="nome" type="text" placeholder="Seu nome" required value={formPar.nome} onChange={handlePar} />
-                      </div>
-                      <div>
-                        <label className="label" htmlFor="par-org">Organização</label>
-                        <input className="input" id="par-org" name="organizacao" type="text" placeholder="Empresa ou coletivo" value={formPar.organizacao} onChange={handlePar} />
-                      </div>
+                  <form onSubmit={submitPar} style={{ background: '#fff', borderRadius: 'var(--radius-lg)', padding: 'var(--space-lg)', boxShadow: 'var(--shadow-card)', display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+                    <div>
+                      <label className="label" htmlFor="par-nome">Nome</label>
+                      <input className="input" id="par-nome" name="nome" type="text" placeholder="Seu nome" required value={formPar.nome} onChange={handlePar} />
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-md)' }}>
                       <div>
@@ -288,16 +308,16 @@ export default function Participe() {
                       <label className="label" htmlFor="par-contribuicao">Como quer contribuir?</label>
                       <select className="input" id="par-contribuicao" name="contribuicao" required value={formPar.contribuicao} onChange={handlePar} style={{ cursor: 'pointer' }}>
                         <option value="">Selecione uma opção</option>
-                        <option value="patrocinio">Patrocínio financeiro</option>
-                        <option value="materiais">Doação de materiais</option>
-                        <option value="espaco">Cessão de espaço</option>
-                        <option value="servicos">Prestação de serviços</option>
-                        <option value="outro">Outro</option>
+                        <option value="Patrocínio financeiro">Patrocínio financeiro</option>
+                        <option value="Doação de materiais">Doação de materiais</option>
+                        <option value="Cessão de espaço">Cessão de espaço</option>
+                        <option value="Prestação de serviços">Prestação de serviços</option>
+                        <option value="Pau pra toda obra">Pau pra toda obra</option>
                       </select>
                     </div>
                     <div>
-                      <label className="label" htmlFor="par-mensagem">Mensagem (opcional)</label>
-                      <textarea className="input" id="par-mensagem" name="mensagem" rows={3} placeholder="Conte mais sobre sua ideia de parceria..." value={formPar.mensagem} onChange={handlePar} style={{ resize: 'vertical' }} />
+                      <label className="label" htmlFor="par-comentarios">Comentários (opcional)</label>
+                      <textarea className="input" id="par-comentarios" name="comentarios" rows={3} placeholder="Conte mais sobre sua ideia de parceria..." value={formPar.comentarios} onChange={handlePar} style={{ resize: 'vertical' }} />
                     </div>
                     <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
                       Enviar mensagem
