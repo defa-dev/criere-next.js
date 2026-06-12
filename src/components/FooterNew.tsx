@@ -37,22 +37,22 @@ export default function Footer() {
             </p>
 
             {/* Redes Sociais */}
-            <div style={{ display: 'flex', gap: 'var(--space-sm)' }}>
+            <div style={{ display: 'flex', gap: '10px' }}>
               <a
                 href="https://instagram.com/projeto.criere"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', color: 'white', textDecoration: 'none', transition: 'background 0.2s ease' }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
               >
-                📸
+                <img src="/images/hero/ig.png" alt="Instagram" style={{ width: '52px', height: '52px', objectFit: 'contain' }} />
               </a>
               <a
                 href="https://wa.me/5511947481846"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', color: 'white', textDecoration: 'none', transition: 'background 0.2s ease' }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
               >
-                💬
+                <img src="/images/hero/wpp.png" alt="WhatsApp" style={{ width: '50px', height: '50px', objectFit: 'contain' }} />
               </a>
             </div>
           </div>
@@ -91,8 +91,7 @@ export default function Footer() {
               Contato
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                <span style={{ fontSize: '16px' }}>📧</span>
+              <div>
                 <a
                   href="mailto:projeto.criere@gmail.com"
                   style={{ color: 'white', textDecoration: 'none', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body)' }}
@@ -100,8 +99,7 @@ export default function Footer() {
                   projeto.criere@gmail.com
                 </a>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                <span style={{ fontSize: '16px' }}>📱</span>
+              <div>
                 <a
                   href="tel:+5511947481846"
                   style={{ color: 'white', textDecoration: 'none', fontFamily: 'var(--font-body)', fontSize: 'var(--text-body)' }}
@@ -109,8 +107,7 @@ export default function Footer() {
                   (11) 94748-1846
                 </a>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-                <span style={{ fontSize: '16px' }}>📸</span>
+              <div>
                 <a
                   href="https://instagram.com/projeto.criere"
                   target="_blank"

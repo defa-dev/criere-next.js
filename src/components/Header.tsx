@@ -216,5 +216,5 @@ const NAV_ITEMS = [
   { label: 'Sobre', href: '/#sobre' },
   { label: 'Faça Parte', href: '/participe' },
   { label: 'Blog', href: null },
-  { label: 'Contato', href: '/doacao' },
+  { label: 'Contribua', href: '/doacao' },
 ]

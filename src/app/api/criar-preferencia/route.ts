@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
   const { valor } = await req.json()
 
   const origin = req.headers.get('origin') ?? req.nextUrl.origin
+  const isLocalhost = origin.includes('localhost') || origin.includes('127.0.0.1')
 
   const preference = new Preference(client)
   const result = await preference.create({
@@ -27,7 +28,7 @@ export async function POST(req: NextRequest) {
         failure: `${origin}/doacao?status=erro`,
         pending: `${origin}/doacao?status=pendente`,
       },
-      auto_return: 'approved',
+      ...(!isLocalhost && { auto_return: 'approved' }),
     },
   })
 
