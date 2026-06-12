@@ -344,7 +344,7 @@ export default function Home() {
                 lineHeight: '1.6',
                 color: 'var(--color-text-body)'
               }}>
-                Educação como ferramenta de transformação • Acolhimento e afeto • Valorização da cultura e identidade • Protagonismo infantojuvenil • Inclusão e equidade • Colaboração e voluntariado • Respeito e ética
+                Educação como ferramenta de transformação - Acolhimento e afeto - Valorização da cultura e identidade - Protagonismo infantojuvenil - Inclusão e equidade - Colaboração e voluntariado - Respeito e ética
               </div>
             </div>
           </div>
