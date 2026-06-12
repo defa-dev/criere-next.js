@@ -8,7 +8,7 @@ const client = new MercadoPagoConfig({
 export async function POST(req: NextRequest) {
   const { valor } = await req.json()
 
-  const origin = req.headers.get('origin') ?? 'https://criere.vercel.app'
+  const origin = req.headers.get('origin') ?? req.nextUrl.origin
 
   const preference = new Preference(client)
   const result = await preference.create({
