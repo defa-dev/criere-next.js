@@ -96,15 +96,15 @@ export default function DoeAgora() {
         <div style={{
           background: 'var(--color-primary)',
           color: '#ffffff',
-          height: '44px',
+          minHeight: '44px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
-          padding: '0 48px',
+          padding: '8px 48px',
           flexShrink: 0,
         }}>
-          <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-small)', fontWeight: '500', margin: 0 }}>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-small)', fontWeight: '500', margin: 0, textAlign: 'center', lineHeight: 1.4 }}>
             🎉 Campanha de Festa Junina em andamento — cada doação leva alegria para nossas crianças
           </p>
           <button
