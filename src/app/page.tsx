@@ -1,66 +1,30 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
 import Header from '@/components/Header'
 import FooterNew from '@/components/FooterNew'
 
 const CAROUSEL_SLIDES = [
-  { foto: '/images/galeria/capuera.png',     titulo: 'Acolhimento e escuta' },
+  { foto: '/images/galeria/capuera.png',      titulo: 'Acolhimento e escuta' },
   { foto: '/images/galeria/bibi-miguel.jpeg', titulo: 'Reforço individual' },
   { foto: '/images/galeria/pedron.jpeg',      titulo: 'Cultura e celebrações' },
   { foto: '/images/galeria/vero.jpeg',        titulo: 'Melhoria escolar' },
 ]
 
 function MobileCarousel() {
-  const [current, setCurrent] = useState(0)
-  const touchStartX = useRef(0)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent(i => (i + 1) % CAROUSEL_SLIDES.length)
-    }, 3500)
-    return () => clearInterval(timer)
-  }, [])
-
-  function prev() { setCurrent(i => (i - 1 + CAROUSEL_SLIDES.length) % CAROUSEL_SLIDES.length) }
-  function next() { setCurrent(i => (i + 1) % CAROUSEL_SLIDES.length) }
-
   return (
-    <div
-      className="mobile-carousel"
-      onTouchStart={e => { touchStartX.current = e.touches[0].clientX }}
-      onTouchEnd={e => {
-        const diff = touchStartX.current - e.changedTouches[0].clientX
-        if (diff > 40) next()
-        else if (diff < -40) prev()
-      }}
-    >
-      <div className="carousel-track" style={{ transform: `translateX(-${current * 100}%)` }}>
-        {CAROUSEL_SLIDES.map((slide, i) => (
-          <div key={i} className="carousel-slide">
+    <div className="mobile-carousel">
+      <div id="bento-carousel" className="bento-carousel-track">
+        {[...CAROUSEL_SLIDES, ...CAROUSEL_SLIDES].map((slide, i) => (
+          <div key={i} className="bento-carousel-card">
             <img
               src={slide.foto}
               alt={slide.titulo}
-              className="carousel-img"
+              className="bento-carousel-img"
               style={{ objectPosition: slide.foto.includes('pedron') ? 'center 20%' : 'center' }}
             />
-            <div className="carousel-overlay" />
-            <h3 className="carousel-title">{slide.titulo}</h3>
+            <div className="bento-carousel-overlay" />
+            <h3 className="bento-carousel-title">{slide.titulo}</h3>
           </div>
-        ))}
-      </div>
-
-      <button className="carousel-arrow carousel-arrow-left" onClick={prev} aria-label="Anterior">‹</button>
-      <button className="carousel-arrow carousel-arrow-right" onClick={next} aria-label="Próximo">›</button>
-
-      <div className="carousel-dots">
-        {CAROUSEL_SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`carousel-dot${i === current ? ' active' : ''}`}
-            aria-label={`Slide ${i + 1}`}
-          />
         ))}
       </div>
     </div>
@@ -624,39 +588,44 @@ export default function Home() {
           .mvv-sep { display: none !important; }
         }
 
-        /* Carrossel mobile */
+        /* Carrossel mobile — mesma técnica do carrossel de depoimentos */
+        @keyframes bento-scroll {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(calc(-260px * 4 - var(--space-md) * 4)); }
+        }
+
         .mobile-carousel {
           display: none;
-          position: relative;
-          width: 100%;
-          border-radius: var(--radius-lg);
           overflow: hidden;
+          width: 100%;
           margin-top: var(--space-md);
-          aspect-ratio: 4 / 3;
         }
 
         @media (max-width: 767px) {
           .mobile-carousel { display: block; }
         }
 
-        .carousel-track {
+        .bento-carousel-track {
           display: flex;
-          width: 100%;
-          height: 100%;
-          transition: transform 0.4s ease;
-          will-change: transform;
+          gap: var(--space-md);
+          width: calc(260px * 8 + var(--space-md) * 8);
+          animation: bento-scroll 18s linear infinite;
         }
 
-        .carousel-slide {
-          flex: 0 0 100%;
+        .bento-carousel-card {
           position: relative;
+          flex-shrink: 0;
+          flex-grow: 0;
+          width: 260px;
+          height: 320px;
+          border-radius: var(--radius-lg);
           overflow: hidden;
           display: flex;
           align-items: flex-end;
           justify-content: center;
         }
 
-        .carousel-img {
+        .bento-carousel-img {
           position: absolute;
           inset: 0;
           width: 100%;
@@ -665,14 +634,14 @@ export default function Home() {
           display: block;
         }
 
-        .carousel-overlay {
+        .bento-carousel-overlay {
           position: absolute;
           inset: 0;
           background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
           z-index: 1;
         }
 
-        .carousel-title {
+        .bento-carousel-title {
           position: relative;
           z-index: 2;
           font-family: var(--font-body);
@@ -681,55 +650,7 @@ export default function Home() {
           color: #ffffff;
           margin: 0 0 var(--space-lg) 0;
           text-align: center;
-        }
-
-        .carousel-arrow {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          background: rgba(0,0,0,0.3);
-          border: none;
-          color: #ffffff;
-          font-size: 28px;
-          line-height: 1;
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 3;
-        }
-
-        .carousel-arrow-left  { left: 10px; }
-        .carousel-arrow-right { right: 10px; }
-
-        .carousel-dots {
-          position: absolute;
-          bottom: 10px;
-          left: 0;
-          right: 0;
-          display: flex;
-          justify-content: center;
-          gap: 6px;
-          z-index: 3;
-        }
-
-        .carousel-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          border: none;
-          background: rgba(255,255,255,0.45);
-          cursor: pointer;
-          padding: 0;
-          transition: background 0.2s ease, transform 0.2s ease;
-        }
-
-        .carousel-dot.active {
-          background: #ffffff;
-          transform: scale(1.3);
+          padding: 0 var(--space-sm);
         }
       `}</style>
     </div>
