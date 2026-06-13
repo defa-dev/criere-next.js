@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Header from '@/components/Header'
 import FooterNew from '@/components/FooterNew'
+import { redirect } from '@/lib/navigate'
 
 const VALORES = [30, 50, 100]
 const WA = '5511947481846'
@@ -78,7 +79,7 @@ export default function DoeAgora() {
         body: JSON.stringify({ valor: Number(valor) }),
       })
       const data = await res.json()
-      window.location.href = data.url
+      redirect(data.url)
     } catch {
       setLoadingValor(null)
     }
