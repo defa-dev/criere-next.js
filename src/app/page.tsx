@@ -106,7 +106,7 @@ function BentoCard({ foto, cor, flex, children, padding = 'var(--space-md)', bgS
   bgPosition?: string
 }) {
   return (
-    <div style={{
+    <div className="bento-card" style={{
       flex,
       borderRadius: 'var(--radius-lg)',
       overflow: 'hidden',
@@ -128,6 +128,19 @@ function BentoCard({ foto, cor, flex, children, padding = 'var(--space-md)', bgS
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
         {children}
       </div>
+
+      <style jsx>{`
+        .bento-card {
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        @media (min-width: 768px) {
+          .bento-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+            z-index: 5;
+          }
+        }
+      `}</style>
     </div>
   )
 }
