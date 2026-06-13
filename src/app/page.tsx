@@ -13,7 +13,7 @@ const CAROUSEL_SLIDES = [
 function MobileCarousel() {
   return (
     <div className="mobile-carousel">
-      <div id="bento-carousel" className="bento-carousel-track">
+      <div className="bento-carousel-track">
         {[...CAROUSEL_SLIDES, ...CAROUSEL_SLIDES].map((slide, i) => (
           <div key={i} className="bento-carousel-card">
             <img
@@ -27,6 +27,71 @@ function MobileCarousel() {
           </div>
         ))}
       </div>
+
+      <style jsx>{`
+        @keyframes bento-scroll {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(calc(-260px * 4 - 16px * 4)); }
+        }
+
+        .mobile-carousel {
+          display: none;
+          overflow: hidden;
+          width: 100%;
+          margin-top: var(--space-md);
+        }
+
+        @media (max-width: 767px) {
+          .mobile-carousel { display: block; }
+        }
+
+        .bento-carousel-track {
+          display: flex;
+          gap: 16px;
+          width: max-content;
+          animation: bento-scroll 18s linear infinite;
+        }
+
+        .bento-carousel-card {
+          position: relative;
+          flex: 0 0 auto;
+          width: 260px;
+          height: 320px;
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+        }
+
+        .bento-carousel-img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .bento-carousel-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+          z-index: 1;
+        }
+
+        .bento-carousel-title {
+          position: relative;
+          z-index: 2;
+          font-family: var(--font-body);
+          font-size: var(--text-h4);
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0 0 var(--space-lg) 0;
+          text-align: center;
+          padding: 0 var(--space-sm);
+        }
+      `}</style>
     </div>
   )
 }
@@ -588,70 +653,6 @@ export default function Home() {
           .mvv-sep { display: none !important; }
         }
 
-        /* Carrossel mobile — mesma técnica do carrossel de depoimentos */
-        @keyframes bento-scroll {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(calc(-260px * 4 - var(--space-md) * 4)); }
-        }
-
-        .mobile-carousel {
-          display: none;
-          overflow: hidden;
-          width: 100%;
-          margin-top: var(--space-md);
-        }
-
-        @media (max-width: 767px) {
-          .mobile-carousel { display: block; }
-        }
-
-        .bento-carousel-track {
-          display: flex;
-          gap: var(--space-md);
-          width: calc(260px * 8 + var(--space-md) * 8);
-          animation: bento-scroll 18s linear infinite;
-        }
-
-        .bento-carousel-card {
-          position: relative;
-          flex-shrink: 0;
-          flex-grow: 0;
-          width: 260px;
-          height: 320px;
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          display: flex;
-          align-items: flex-end;
-          justify-content: center;
-        }
-
-        .bento-carousel-img {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-        }
-
-        .bento-carousel-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
-          z-index: 1;
-        }
-
-        .bento-carousel-title {
-          position: relative;
-          z-index: 2;
-          font-family: var(--font-body);
-          font-size: var(--text-h4);
-          font-weight: 600;
-          color: #ffffff;
-          margin: 0 0 var(--space-lg) 0;
-          text-align: center;
-          padding: 0 var(--space-sm);
-        }
       `}</style>
     </div>
   )
